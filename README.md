@@ -8,7 +8,7 @@ Our application is a language learning flashcard application uses React for the 
 The project uses Python for the backend and JavaScript (React) for the frontend. Python is a versatile language well-suited for backend development, with the Flask framework being ideal for smaller-scale web applications. React is a widely-used framework for building  frontends, and its API  integrates welkl with a Python backend, ensuring smooth communication between the two.
 
 Below is a tree diagram illustrating the file structure of our project:
-```bash
+```text
 Flash-Card-Application/
 |
 |-- backend/
