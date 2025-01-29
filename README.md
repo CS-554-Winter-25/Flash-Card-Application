@@ -21,5 +21,14 @@ Flash-Card-Application/
 │           ├── __init__.py
 │           └── routes.py
 ├── frontend/
-
+│   ├── public/
+│   │   └── index.html
+│   └── src/
+│       ├── app/
+│       ├── features/
+│       ├── components/
+│       ├── hooks/
+│       └── utilities/
+├── .gitignore
+└── README.md
 ```
