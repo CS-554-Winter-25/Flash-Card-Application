@@ -12,14 +12,23 @@ Below is a tree diagram illustrating the file structure of our project:
 Flash-Card-Application/
 │
 ├── backend/
-│   └── src/
+│   └── app/
 │       ├── __init__.py
 │       ├── models/
-│       │   └── ...
-│       ├── components.py
-│       └── routes/
-│           ├── __init__.py
-│           └── routes.py
+│       │   ├── flashcard.py
+│       │   ├── deck.py
+│       │   └── user.py
+│       ├── routes/
+│       │   ├── __init__.py
+│       │   ├── flashcard_routes.py
+│       │   ├── deck_routes.py
+│       │   └── auth_routes.py
+│       ├── services/
+│       │   ├── __init__.py
+│       │   ├── flashcard_service.py
+│       │   └── deck_service.py
+│       └── config.py
+│
 ├── frontend/
 │   ├── public/
 │   │   └── index.html
