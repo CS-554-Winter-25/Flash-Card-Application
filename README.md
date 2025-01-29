@@ -10,6 +10,16 @@ The project uses Python for the backend and JavaScript (React) for the frontend.
 Below is a tree diagram illustrating the file structure of our project:
 ```text
 Flash-Card-Application/
-|
-|-- backend/
+│
+├── backend/
+│   └── src/
+│       ├── __init__.py
+│       ├── models/
+│       │   └── ...
+│       ├── components.py
+│       └── controllers.py
+│           ├── __init__.py
+│           └── controller.py
+├── frontend/
+
 ```
