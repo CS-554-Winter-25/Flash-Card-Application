@@ -7,4 +7,4 @@ The minimum viable product we will produce includes all features listed in the "
 
 We will also complete the following features from the "Review Modes" section of our features list doc:
 - [ ] Ability to review cards using spaced repetiton 
-- [ ] Ability to review a full desk of cards in sequential order
+- [ ] Ability to review a full deck of cards in sequential order
