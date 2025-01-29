@@ -17,9 +17,9 @@ Flash-Card-Application/
 │       ├── models/
 │       │   └── ...
 │       ├── components.py
-│       └── controllers.py
+│       └── routes/
 │           ├── __init__.py
-│           └── controller.py
+│           └── routes.py
 ├── frontend/
 
 ```
