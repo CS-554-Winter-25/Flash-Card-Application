@@ -46,3 +46,23 @@ Flash-Card-Application/
 ├── .gitignore
 └── README.md
 ```
+
+
+
+## Execution Steps
+1. Initiate environment: 
+    python3 -m venv venv
+    source venv/bin/activate
+2. Install backend dependencies
+    cd backend
+    pip install -r requirements.txt
+3. Execute backend
+    cd app
+    flask run
+4. Execute frontend
+    cd frontend
+    npm create vite@latest frontend
+    npm install axios
+    npm run dev
+5. View application in browser
+    localhost:5173
