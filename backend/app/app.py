@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-from models.flashcard import get_all_flashcards  
+from app.models.flashcard import get_all_flashcards  
 
 
 
