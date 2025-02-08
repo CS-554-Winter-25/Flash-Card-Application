@@ -18,16 +18,17 @@ class flashcard:
         '''
         return self.data["answer"]
         
-    def __str__(self):
+    def get_data(self):
         '''
-        Displayes the entire flashcard
+        Returns the entire flashcard
         '''
-        return f"Question: {self.get_question}\nAnswer: {self.get_answer}"
+        return self.data
     
  
 test_card1 = flashcard("What is Flask?", "A lightweight Python web framework.")
 test_card2 = flashcard("What is React?", "A JavaScript library for building UIs.")
-flashcards = [test_card1, test_card2]
+
+flashcards = [test_card1.get_data(), test_card2.get_data()]
 
 def get_all_flashcards():
     return flashcards   
