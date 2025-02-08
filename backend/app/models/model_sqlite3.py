@@ -2,7 +2,7 @@
 model_sqlite3
 '''
 
-import flashcard
+import models.flashcard
 import sqlite3
 
 
@@ -18,36 +18,36 @@ class Model_sqlite:
         
         try:
             cursor.execute("select * from flashcards")
-        except sqlite3.OrerationalError:
+        except sqlite3.OperationalError:
             cursor.execute("create table flashcards (question, answer)")
         finally:
             cursor.close()
         
-        def insert(self, flashcard):
-            '''
-            Inserts a card into database
-            '''
+    def insert(self, flashcard):
+        '''
+        Inserts a card into database
+        '''
 
-            card_data = flashcard.get_data()
+        card_data = flashcard.get_data()
 
-            connection = sqlite3.connect(DB_FILE)
-            cursor = connection.cursor()
+        connection = sqlite3.connect(DB_FILE)
+        cursor = connection.cursor()
 
-            cursor.execute("insert into flashcards (question, answer) \
-                           values (:question, :answer)", card_data)
-            
-            connection.commit()
-            cursor.close
-            return True
+        cursor.execute("insert into flashcards (question, answer) \
+                       values (:question, :answer)", card_data)
         
-        def select(self):
-            '''
-            Retrieves flashcards from database
-            '''
+        connection.commit()
+        cursor.close
+        return True
+    
+    def select(self):
+        '''
+        Retrieves flashcards from database
+        '''
 
-            connection = sqlite3.connect(DB_FILE)
-            cursor = connection.cursor()
-            cursor.execute("select * from flashcards")
+        connection = sqlite3.connect(DB_FILE)
+        cursor = connection.cursor()
+        cursor.execute("select * from flashcards")
 
-            return cursor.fetchall() 
+        return cursor.fetchall() 
 

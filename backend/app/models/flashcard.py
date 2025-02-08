@@ -2,7 +2,7 @@
 Flashcard.py
 """
 
-import model_sqlite3
+from models.model_sqlite3 import Model_sqlite
 
 
 class Flashcard:
@@ -33,17 +33,16 @@ class Flashcard:
 test_card1 = Flashcard("What is Flask?", "A lightweight Python web framework.")
 test_card2 = Flashcard("What is React?", "A JavaScript library for building UIs.")
 
-deck_db = Model_sqlite()
-deck_db.insert(test_card1)
-deck_db.insert(test_card2)
+model = Model_sqlite()
+model.insert(test_card1)
+model.insert(test_card2)
 
 # flashcards = [test_card1.get_data(), test_card2.get_data()]
 
 def get_all_flashcards():
     flashcards = []
-    model = Model_sqlite()
     rows = model.select()
     for row in rows:
         card = Flashcard(row[0], row[1])
-        flashcards.append(Flashcard.get_data())
+        flashcards.append(card.get_data())
     return flashcards   
