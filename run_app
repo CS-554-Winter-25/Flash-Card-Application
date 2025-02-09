@@ -1,8 +1,24 @@
 #!/bin/bash
 
 # SIG handler
-# Needs handler
-# exit_gracefully(){
+exit_gracefully(){
+	echo 
+	echo "***************************"
+	echo "*                         *"
+	echo "*        Goodbye...       *"
+	echo "*                         *"
+	echo "***************************"
+	echo 
+	
+	pkill -P $$
+	pkill -f 'flask'
+	deactivate
+
+	exit 0
+}
+
+#Run script
+trap 'exit_gracefully' SIGINT
 
 if [ ! -d "venv" ]; then
     python3 -m venv venv
@@ -18,17 +34,14 @@ flask run &
 sleep 5
 
 cd ../../frontend
-if [ ! -d "frontend" ]; then
-    npm create vite@latest frontend -- --template react
-    npm install axios
-fi
-npm run dev
+npm install
 
-#trap 'exit_gracefully' SIGINT
+npm run dev &
 
-#while true; do
-#	sleep 1
-#done
+while true;
+do
+	sleep 1
+done
 
 
 
