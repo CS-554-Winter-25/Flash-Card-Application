@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# SIG handler
+exit_gracefully(){
+	echo 
+	echo "***************************"
+	echo "*                         *"
+	echo "*        Goodbye...       *"
+	echo "*                         *"
+	echo "***************************"
+	echo 
+	
+	pkill -P $$
+	pkill -f 'flask'
+	deactivate
+
+	exit 0
+}
+
+#Run script
+trap 'exit_gracefully' SIGINT
+
+if [ ! -d "venv" ]; then
+    python3 -m venv venv
+fi
+
+source venv/bin/activate
+
+cd backend
+pip install -r requirements.txt
+
+cd app
+flask run &
+sleep 5
+
+cd ../../frontend
+npm install
+
+npm run dev &
+
+while true;
+do
+	sleep 1
+done
+
+
+
