@@ -1,60 +1,93 @@
-import { useState, useEffect} from 'react'
-import axios from "axios"
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import FlashcardList from './components/FlashcardList';
+import FlashcardForm from './components/FlashcardForm';
+import Navigation from './components/Navigation';
+import './App.css';
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [flashcards, setFlashcards] = useState([]);
-  const [flipped, setFlipped] = useState({}); // Track flipped state per card
+  const [flipped, setFlipped] = useState({});
+  const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '' });
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [currentPage, setCurrentPage] = useState('landing');
 
   useEffect(() => {
-    // Make the GET request to Flask API (ensure the URL is correct)
-    axios.get("http://127.0.0.1:5000")  // Flask's endpoint
-      .then(response => {
-        setMessage(response.data.message);
-      })
-      .catch(error => {
-        console.error("There was an error fetching the message!", error);
-      });
+    axios.get('http://127.0.0.1:5000')
+      .then(response => setMessage(response.data.message))
+      .catch(error => console.error('Error fetching message:', error));
 
-    axios.get("http://127.0.0.1:5000/flashcards")
+    axios.get('http://127.0.0.1:5000/flashcards')
       .then(response => setFlashcards(response.data))
-      .catch(error => console.error("Error fetching flashcards:", error));
+      .catch(error => console.error('Error fetching flashcards:', error));
   }, []);
 
-
-  // Toggle flip state for a specific card
   const handleFlip = (index) => {
-    setFlipped(prevState => ({ ...prevState, [index]: !prevState[index] }));
+    setFlipped(prev => ({ ...prev, [index]: !prev[index] }));
   };
-  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (editingIndex !== null) {
+      const updatedFlashcards = [...flashcards];
+      updatedFlashcards[editingIndex] = newFlashcard;
+      setFlashcards(updatedFlashcards);
+      setEditingIndex(null);
+    } else {
+      setFlashcards(prev => [...prev, newFlashcard]);
+    }
+    setNewFlashcard({ question: '', answer: '' });
+  };
+
+  const handleEdit = (index) => {
+    setNewFlashcard(flashcards[index]);
+    setEditingIndex(index);
+  };
+
+  const handleDelete = (index) => {
+    setFlashcards(flashcards.filter((_, i) => i !== index));
+  };
+
   return (
     <div>
-      <h1>{message}</h1>
-      <h2>Flashcards</h2>
-      <div className="flashcard-container">
-        {flashcards.map((card, index) => (
-          <div 
-            key={index} 
-            className={`flashcard ${flipped[index] ? "flipped" : ""}`} 
-            onClick={() => handleFlip(index)}
-          >
-            <div className="flashcard-inner">
-              <div className="flashcard-front">
-                <p><strong>Q:</strong> {card.question}</p>
-              </div>
-              <div className="flashcard-back">
-                <p><strong>A:</strong> {card.answer}</p>
-              </div>
-            </div>
+      {currentPage !== 'landing' && (
+        <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      )}
+
+      {currentPage === 'landing' ? (
+        <div>
+          <h1>{message}</h1> 
+          <div className="nav-btn-container">
+            <button onClick={() => setCurrentPage('view')} className="nav-btn">View Flashcards</button>
+            <button onClick={() => setCurrentPage('edit')} className="nav-btn">Edit Flashcards</button>
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div>
+          {currentPage === 'edit' && (
+            <FlashcardForm
+              newFlashcard={newFlashcard}
+              setNewFlashcard={setNewFlashcard}
+              handleSubmit={handleSubmit}
+              editingIndex={editingIndex}
+            />
+          )}
+
+          <FlashcardList
+            flashcards={flashcards}
+            flipped={flipped}
+            handleFlip={handleFlip}
+            currentPage={currentPage}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
+        </div>
+      )}
     </div>
   );
 }
 
-
-export default App
+export default App;
