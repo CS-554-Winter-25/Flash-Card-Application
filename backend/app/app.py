@@ -9,7 +9,7 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def hello():
-    return jsonify({"message": "Hello from Flask!"})
+    return jsonify({"message": "Flashcards Main Menu"})
 
 
 @app.route('/flashcards', methods=['GET'])
