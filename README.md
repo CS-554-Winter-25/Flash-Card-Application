@@ -63,11 +63,11 @@ Flash-Card-Application/
     ```
     cd src
     flask run
+    visit 127.0.0.1:5000/ to view swagger documentation
 4. Execute frontend
     ```
     cd frontend
-    npm create vite@latest frontend
-    npm install axios
+    npm i 
     npm run dev
 
 5. View application in browser

@@ -2,7 +2,7 @@ from flask_restx import Resource, Namespace, abort, Model, fields
 from src.models import db, DbFlashcard
 from sqlalchemy import select, exc
 
-flashcard_namespace = Namespace('Flashcard', "ends to handle singular flashcard resources")
+flashcard_namespace = Namespace('Flashcard', "routes to handle singular flashcard resources")
 
 flashcard_args_post = flashcard_namespace.parser();
 flashcard_args_post.add_argument('question', type=str, required=True)
