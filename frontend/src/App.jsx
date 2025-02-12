@@ -16,7 +16,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState('landing');
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000')
+    axios.get('http://127.0.0.1:5000/message')
       .then(response => setMessage(response.data.message))
       .catch(error => console.error('Error fetching message:', error));
 

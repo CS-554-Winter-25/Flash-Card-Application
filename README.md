@@ -12,7 +12,7 @@ Below is a tree diagram illustrating the file structure of our project:
 Flash-Card-Application/
 │
 ├── backend/
-│   ├── app/
+│   ├── src/
 │   │   ├── __init__.py
 │   │   ├── models/
 │   │   │   ├── flashcard.py
@@ -61,13 +61,13 @@ Flash-Card-Application/
     pip install -r requirements.txt
 3. Execute backend
     ```
-    cd app
+    cd src
     flask run
+    visit 127.0.0.1:5000/ to view swagger documentation
 4. Execute frontend
     ```
     cd frontend
-    npm create vite@latest frontend
-    npm install axios
+    npm i 
     npm run dev
 
 5. View application in browser
