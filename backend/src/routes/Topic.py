@@ -57,6 +57,7 @@ class Topic(Resource):
 
     @topic_namespace.expect(topic_args_by_id)
     def delete(self):
-        topic_id = topic_args_by_id.parse_args()
+        topic_id = topic_args_by_id.parse_args().get('id')
         topic = DbTopic.find_one(topic_id)
         topic.delete(db.session)
+        return 204

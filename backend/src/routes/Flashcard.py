@@ -46,7 +46,7 @@ class Flashcard(Resource):
                                       flashcard_body.get('answer'),
                                       flashcard_body.get('topic_id'))
         except exc.IntegrityError:
-            abort(400, f"Topic ({flashcard_body.get('id')}) does not exist")
+            abort(400, f"Topic ({flashcard_body.get('topic_id')}) does not exist")
 
     @flashcard_namespace.marshal_with(flashcard_model)
     @flashcard_namespace.expect(flashcard_args_put)
@@ -61,7 +61,7 @@ class Flashcard(Resource):
 
     @flashcard_namespace.expect(flashcard_args_by_id)
     def delete(self):
-        flashcard_id = flashcard_args_by_id.parse_args()
+        flashcard_id = flashcard_args_by_id.parse_args().get('id')
         flashcard = DbFlashcard.find_one(db.session, flashcard_id)
         flashcard.delete(db.session)
         return 204

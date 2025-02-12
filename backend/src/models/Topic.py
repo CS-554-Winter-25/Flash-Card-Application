@@ -18,7 +18,7 @@ class Topic(db.Model):
 
     @staticmethod
     def find_all(session):
-        return session.execute(select(Topic)).all()
+        return session.execute(select(Topic)).scalars().all()
 
     @classmethod
     def create(cls, session, topic):

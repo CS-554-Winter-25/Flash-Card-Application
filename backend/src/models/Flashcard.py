@@ -8,14 +8,14 @@ class Flashcard(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     question: Mapped[str] = mapped_column(UnicodeText, nullable=False)
     answer: Mapped[str] = mapped_column(UnicodeText, nullable=False)
-    topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id"))
+    topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id"), nullable=False)
     # mapped relations
     topic: Mapped["Topic"] = relationship(back_populates="flashcards")
 
     @staticmethod
     def find_one(session, flashcard_id):
-        return session.one_or_404(select(Flashcard).filter_by(id=flashcard_id),
-                                  description=f"Flashcard with ID {flashcard_id} not found")
+        return db.one_or_404(select(Flashcard).filter_by(id=flashcard_id),
+                             description=f"Flashcard with ID {flashcard_id} not found")
 
     @classmethod
     def create(cls, session, question, answer, topic_id):
