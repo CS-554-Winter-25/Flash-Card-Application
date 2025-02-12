@@ -13,7 +13,7 @@ class Flashcard(db.Model):
     topic: Mapped["Topic"] = relationship(back_populates="flashcards")
 
     @staticmethod
-    def find_one(session, flashcard_id):
+    def find_one(flashcard_id):
         return db.one_or_404(select(Flashcard).filter_by(id=flashcard_id),
                              description=f"Flashcard with ID {flashcard_id} not found")
 

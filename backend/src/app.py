@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from src.models import db
 from src.routes import api
@@ -18,6 +18,11 @@ with app.app_context():
         cursor.execute("PRAGMA foreign_keys=ON")
         cursor.close()
     db.create_all()
+
+
+@app.route('/message', methods=['GET'])
+def hello():
+    return jsonify({"message": "Flashcards Main Menu"})
 
 
 if __name__ == '__main__':

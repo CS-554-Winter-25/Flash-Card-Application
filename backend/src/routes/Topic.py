@@ -48,10 +48,11 @@ class Topic(Resource):
     @topic_namespace.marshal_with(topic_model)
     @topic_namespace.expect(topic_args_put)
     def put(self):
-        topic_body = topic_args_post.parse_args()
+        topic_body = topic_args_put.parse_args()
         try:
-            topic = DbTopic.find_one(db.session, topic_body.get('id'))
+            topic = DbTopic.find_one(topic_body.get('id'))
             topic.update(db.session, topic_body.get('topic'))
+            return topic
         except exc.IntegrityError:
             abort(400, f"Error updating topic")
 

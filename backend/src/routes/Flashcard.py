@@ -35,7 +35,7 @@ class Flashcard(Resource):
     @flashcard_namespace.expect(flashcard_args_by_id)
     def get(self):
         flashcard_id = flashcard_args_by_id.parse_args().get('id')
-        return DbFlashcard.find_one(db.session, flashcard_id)
+        return DbFlashcard.find_one(flashcard_id)
 
     @flashcard_namespace.marshal_with(flashcard_model)
     @flashcard_namespace.expect(flashcard_args_post)
@@ -53,15 +53,15 @@ class Flashcard(Resource):
     def put(self):
         flashcard_body = flashcard_args_put.parse_args()
         try:
-            flashcard = DbFlashcard.find_one(db.session, flashcard_body.get('id'))
+            flashcard = DbFlashcard.find_one(flashcard_body.get('id'))
             flashcard.update(db.session, **flashcard_body)
             return flashcard
         except exc.IntegrityError:
-            abort(400, f"Topic ({flashcard_body.get('id')}) does not exist")
+            abort(400, f"Topic ({flashcard_body.get('topic_id')}) does not exist")
 
     @flashcard_namespace.expect(flashcard_args_by_id)
     def delete(self):
         flashcard_id = flashcard_args_by_id.parse_args().get('id')
-        flashcard = DbFlashcard.find_one(db.session, flashcard_id)
+        flashcard = DbFlashcard.find_one(flashcard_id)
         flashcard.delete(db.session)
         return 204
