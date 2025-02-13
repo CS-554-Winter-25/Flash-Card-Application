@@ -2,6 +2,9 @@
 
 # SIG handler
 exit_gracefully(){
+	pkill -P $$
+	deactivate
+
 	echo 
 	echo "***************************"
 	echo "*                         *"
@@ -10,14 +13,9 @@ exit_gracefully(){
 	echo "***************************"
 	echo 
 	
-	pkill -P $$
-	pkill -f 'flask'
-	deactivate
-
 	exit 0
 }
 
-#Run script
 trap 'exit_gracefully' SIGINT
 
 if [ ! -d "venv" ]; then
@@ -29,9 +27,9 @@ source venv/bin/activate
 cd backend
 pip install -r requirements.txt
 
-cd app
+cd src
 flask run &
-sleep 5
+sleep 2
 
 cd ../../frontend
 npm install
