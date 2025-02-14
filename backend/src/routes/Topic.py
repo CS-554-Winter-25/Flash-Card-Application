@@ -62,3 +62,24 @@ class Topic(Resource):
         topic = DbTopic.find_one(topic_id)
         topic.delete(db.session)
         return 204
+
+
+@topic_namespace.route('/by-name')
+class TopicByName(Resource):
+    @topic_namespace.marshal_with(topic_model)
+    @topic_namespace.expect(topic_args_post)
+    def get(self):
+        topic_name = topic_args_post.parse_args().get('topic')
+        topic = DbTopic.query.filter_by(topic=topic_name).first()
+        if not topic:
+            abort(404, f"Topic with name '{topic_name}' not found")
+        return topic
+
+@topic_namespace.route('/all')
+class AllTopics(Resource):
+    @topic_namespace.marshal_with(topic_model, as_list=True)
+    def get(self):
+        topics = DbTopic.query.all()
+        if not topics:
+            abort(404, "No topics found")
+        return topics
