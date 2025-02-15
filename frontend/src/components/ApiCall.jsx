@@ -172,3 +172,13 @@ export const handleUpdateFlashcard = async (flashcardId, updatedFlashcard, setTo
     throw error;
   }
 };
+
+export const getTopics = async () => {
+  try {
+    const response = await axios.get(`http://127.0.0.1:5000/topics/`);
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching topics:', error);
+    throw error; 
+  }
+};

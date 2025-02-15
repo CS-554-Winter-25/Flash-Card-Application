@@ -1,4 +1,5 @@
 import { useState} from 'react';
+import { AppProvider } from "./AppContext";
 import Navigation from './components/Navigation';
 import './App.css';
 
@@ -9,6 +10,7 @@ import { handleFetchFlashcardsByTopicID } from './components/ApiCall.jsx';
 import { handleFetchAllFlashcardsByTopic } from './components/ApiCall.jsx';
 import { handleFetchFlashcardsByTopicName } from './components/ApiCall.jsx';
 import { handleUpdateFlashcard } from './components/ApiCall.jsx';
+import TopicList from './components/TopicList.jsx';
 
 
 function App() {
@@ -52,6 +54,9 @@ function App() {
       {currentPage === 'landing' ? (
         <div>
           <h1>Flashcards Main Menu</h1>
+          <AppProvider>
+            <TopicList />
+          </AppProvider>
           <div className="nav-btn-container">
             <button onClick={() => setCurrentPage('add-flashcard')} className="nav-btn">
               Add Flashcard
@@ -246,7 +251,7 @@ function App() {
                         </div>
                         <button
                           className="edit-button"
-                          onClick={() => {
+                          onClick={() => {           
                             setEditingIndex(index);
                             setNewFlashcard({
                               question: flashcard.question,
