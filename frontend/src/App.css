@@ -249,3 +249,39 @@ button {
 .main-menu-btn:hover {
   background-color: #ff4081;
 }
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 8px;
+}
+
+.table th {
+  text-align: left;
+  border-bottom: 2px solid white;
+}
+
+.table td {
+  text-align: left;
+  border-bottom: 1px solid white;
+}
+/* Flexbox to align buttons horizontally */
+.table td.buttons-cell {
+  display: flex;
+  justify-content: flex-start; /* Align buttons to the left */
+  gap: 10px; /* Adds space between buttons */
+}
+
+.table td button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.table td button:hover {
+  background-color: #45a049;
+}
