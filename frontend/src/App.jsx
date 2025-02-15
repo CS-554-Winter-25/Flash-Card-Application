@@ -11,10 +11,11 @@ import { handleFetchAllFlashcardsByTopic } from './components/ApiCall.jsx';
 import { handleFetchFlashcardsByTopicName } from './components/ApiCall.jsx';
 import { handleUpdateFlashcard } from './components/ApiCall.jsx';
 import TopicList from './components/TopicList.jsx';
+import Flashcard from './components/Flashcard.jsx';
 
 
 function App() {
-  const [flipped, setFlipped] = useState({});
+  //const [flipped, setFlipped] = useState({});
   const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: 1 });
   const [editingIndex, setEditingIndex] = useState(null);
   const [currentPage, setCurrentPage] = useState('landing');
@@ -30,9 +31,9 @@ function App() {
     flashcards: []
   });
 
-  const handleFlip = (index) => {
-    setFlipped((prev) => ({ ...prev, [index]: !prev[index] }));
-  };
+  // const handleFlip = (index) => {
+  //   setFlipped((prev) => ({ ...prev, [index]: !prev[index] }));
+  // };
 
   const handleFetchFlashcard = async () => {
     try {
@@ -234,36 +235,8 @@ function App() {
                 <div>
                   <h2>Topic: {topicData.topicName}</h2>
                   <div>
-                    {topicData.flashcards.map((flashcard, index) => (
-                      <div key={flashcard.id} className="flashcard-container">
-                        <div
-                          className={`flashcard ${flipped[index] ? 'flipped' : ''}`}
-                          onClick={() => handleFlip(index)}
-                        >
-                          <div className="flashcard-inner">
-                            <div className="flashcard-front">
-                              <h3>{flashcard.question}</h3>
-                            </div>
-                            <div className="flashcard-back">
-                              <p>{flashcard.answer}</p>
-                            </div>
-                          </div>
-                        </div>
-                        <button
-                          className="edit-button"
-                          onClick={() => {           
-                            setEditingIndex(index);
-                            setNewFlashcard({
-                              question: flashcard.question,
-                              answer: flashcard.answer,
-                              topic_id: topicData.id, // Use the topic's actual ID if needed
-                            });
-                            setCurrentPage('edit-flashcard');
-                          }}
-                        >
-                          Edit
-                        </button>
-                      </div>
+                    {topicData.flashcards.map((flashcard) => (
+                      <Flashcard card={flashcard}  />
                     ))}
                   </div>
                 </div>
