@@ -2,7 +2,7 @@ import { useState} from 'react';
 import Navigation from './components/Navigation';
 import './App.css';
 
-import { handleViewFlashcard } from './components/ApiCall.jsx';
+import { handleDeleteFlashcard, handleViewFlashcard } from './components/ApiCall.jsx';
 import { handleAddFlashcard } from './components/ApiCall.jsx';
 import { handleAddTopic } from './components/ApiCall.jsx';
 import { handleFetchFlashcardsByTopicID } from './components/ApiCall.jsx';
@@ -27,8 +27,6 @@ function App() {
     topicName: '',
     flashcards: []
   });
-
-
 
   const handleFlip = (index) => {
     setFlipped((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -255,7 +253,7 @@ function App() {
                               answer: flashcard.answer,
                               topic_id: topicData.id, // Use the topic's actual ID if needed
                             });
-                            setCurrentPage('edit');
+                            setCurrentPage('edit-flashcard');
                           }}
                         >
                           Edit
@@ -303,6 +301,11 @@ function App() {
                 Save Changes
               </button>
               <button onClick={() => setCurrentPage('view-by-topic')}>Cancel</button>
+              <button onClick={() => {
+                const flashcardId = topicData.flashcards[editingIndex].id;
+                handleDeleteFlashcard(flashcardId, setTopicData);
+                setCurrentPage('view-by-topic')
+              }}>Delete</button>
             </div>
           )}
 

@@ -71,7 +71,6 @@ export const handleViewFlashcard = async (flashcardId, setFlashcardData) => {
 
 
 // Delete a flashcard
-// Not currently implemented in the UI
 export const handleDeleteFlashcard = async (flashcardId, setFlashcards, setNewFlashcard, topicIdInput) => {
   if (!flashcardId) {
     throw new Error('Flashcard ID is required.');
@@ -79,9 +78,9 @@ export const handleDeleteFlashcard = async (flashcardId, setFlashcards, setNewFl
 
   try {
     await axios.delete(`http://127.0.0.1:5000/flashcard/?id=${flashcardId}`);
-    
-    setFlashcards((prevFlashcards) => prevFlashcards.filter(flashcard => flashcard.id !== flashcardId));
 
+    setFlashcards((prevFlashcards) => prevFlashcards.filter(flashcard => flashcard.id !== flashcardId));
+    
     alert('Flashcard deleted successfully!');
     setNewFlashcard({ question: '', answer: '', topic_id: topicIdInput });
 
@@ -95,7 +94,7 @@ export const handleDeleteFlashcard = async (flashcardId, setFlashcards, setNewFl
 // Takes an input name and creates a new topic, which generates a unique topic id
 export const handleFetchFlashcardsByTopicID = async (topicIdInput, setTopicData) => {
   if (!topicIdInput) {
-    throw new Error('Topic ID is required.');
+    throw new Error('Topic ID is required.'); 
   }
 
   try {
