@@ -17,6 +17,10 @@ class Flashcard(db.Model):
         return db.one_or_404(select(Flashcard).filter_by(id=flashcard_id),
                              description=f"Flashcard with ID {flashcard_id} not found")
 
+    @staticmethod
+    def find_all():
+        return db.session.execute(select(Flashcard)).scalars().all()
+
     @classmethod
     def create(cls, session, question, answer, topic_id):
         created_flashcard = cls(question=question, answer=answer, topic_id=topic_id)
