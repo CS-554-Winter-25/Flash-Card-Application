@@ -4,10 +4,10 @@ import "./navbar.css"; // Import custom CSS
 import logo from "./logo.jpg";
 import { getAdapter } from "axios";
 
-export default function FloatingNavbar() {
+export default function FloatingNavbar({setCurrentPage}) {
   const [darkMode, setDarkMode] = useState(false);
   const [user, setUser] = useState(null);
-
+  
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add("dark-mode");
@@ -16,7 +16,7 @@ export default function FloatingNavbar() {
     }
   }, [darkMode]);
 
-  const handleLogin = () => setUser({ name: "John Doe" });
+  const handleLogin = () => setUser({ name: "Luiz Silva" });
   const handleLogout = () => setUser(null);
 
 
@@ -31,9 +31,9 @@ export default function FloatingNavbar() {
         {user && (
           <>
           <div className="navbar-logged-buttons">
-            <button className="navbar-button">Main Menu</button>
-            <button className="navbar-button">My Topics</button>
-            <button className="navbar-button">New Topic</button>
+            <button onClick={() => setCurrentPage('landing')} className="navbar-button">Main Menu</button>
+            <button onClick={() => setCurrentPage('view-all-topics')} className="navbar-button">My Topics</button>
+            <button onClick={() => setCurrentPage('add-topic')} className="navbar-button">New Topic</button>
           </div>
           </>
         )}

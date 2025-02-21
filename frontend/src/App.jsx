@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar setCurrentPage={setCurrentPage} />
       {currentPage !== 'landing' && (
         <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
       )}
