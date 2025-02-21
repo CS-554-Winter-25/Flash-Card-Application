@@ -12,6 +12,7 @@ import { handleFetchFlashcardsByTopicName } from './components/ApiCall.jsx';
 import { handleUpdateFlashcard } from './components/ApiCall.jsx';
 import TopicList from './components/TopicList.jsx';
 import Flashcard from './components/Flashcard.jsx';
+import Navbar from './components/Navbar';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
 
   return (
     <div>
+      <Navbar />
       {currentPage !== 'landing' && (
         <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
       )}
