@@ -12,11 +12,12 @@ import { handleFetchFlashcardsByTopicName } from './components/ApiCall.jsx';
 import { handleUpdateFlashcard } from './components/ApiCall.jsx';
 import TopicList from './components/TopicList.jsx';
 import Flashcard from './components/Flashcard.jsx';
+import FlashcardList from './components/FlashcardList';
 import Navbar from './components/Navbar';
 
 
+
 function App() {
-  //const [flipped, setFlipped] = useState({});
   const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: 1 });
   const [editingIndex, setEditingIndex] = useState(null);
   const [currentPage, setCurrentPage] = useState('landing');
@@ -31,10 +32,6 @@ function App() {
     topicName: '',
     flashcards: []
   });
-
-  // const handleFlip = (index) => {
-  //   setFlipped((prev) => ({ ...prev, [index]: !prev[index] }));
-  // };
 
   const handleFetchFlashcard = async () => {
     try {
@@ -222,7 +219,9 @@ function App() {
               />
               <button
                 className="fetch-button"
-                onClick={async () => {
+                onClick={
+                  
+                  async () => {
                   try {
                     await handleFetchFlashcardsByTopicName(topicNameInput, setTopicData);
                   } catch (error) {
@@ -236,11 +235,9 @@ function App() {
               {topicData.flashcards && topicData.flashcards.length > 0 && (
                 <div>
                   <h2>Topic: {topicData.topicName}</h2>
-                  <div>
-                    {topicData.flashcards.map((flashcard) => (
-                      <Flashcard card={flashcard}  />
-                    ))}
-                  </div>
+                  <AppProvider>
+                    <FlashcardList topic={topicData.topicName}/>
+                  </AppProvider>
                 </div>
               )}
             </div>
