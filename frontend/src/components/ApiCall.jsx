@@ -44,7 +44,7 @@ export const handleViewFlashcard = async (flashcardId, setFlashcardData) => {
 
 
   // Creates a new Topic
-  export const handleAddTopic = async (newTopicName, setNewTopicName, setNewFlashcard, topicIdInput) => {
+  export const handleAddTopic = async (newTopicName, setNewTopicName, setNewFlashcard) => {
   if (!newTopicName) {
     throw new Error('Topic name is required.');
   }
