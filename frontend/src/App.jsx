@@ -4,6 +4,9 @@ import Navigation from './components/Navigation';
 import './App.css';
 import { handleDeleteFlashcard, handleViewFlashcard } from './components/ApiCall.jsx';
 
+/* Components */
+import Navbar from './components/Navbar.jsx';
+
 /* Pages */
 import Home from './pages/Home.jsx'
 import AddFlashcard from './pages/AddFlashcard';
@@ -32,6 +35,7 @@ function App() {
 
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/AddFlashcard" element={<AddFlashcard />} /> 
