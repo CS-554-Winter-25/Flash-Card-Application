@@ -1,7 +1,7 @@
 import React from "react"
 import { useNavigate } from 'react-router-dom';
 import { AppProvider } from "../AppContext";
-import TopicList from "../components/TopicList";
+import TopicList from "../components/TopicList/TopicList";
 
 function Home() {
   const navigate = useNavigate();

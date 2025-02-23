@@ -1,5 +1,5 @@
 import React from "react"
-import { useAppContext } from "../AppContext"
+import { useAppContext } from "../../AppContext"
 
 function TopicList() {
   const { topics } = useAppContext()

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AppProvider } from '../AppContext.jsx';
 import { handleFetchFlashcardsByTopicName } from '../components/ApiCall.jsx';
-import FlashcardList from '../components/FlashcardList.jsx';
+import FlashcardList from '../components/FlashcardList/FlashcardList.jsx';
 
 function ViewFlashcardsByTopicName() {
   const [topicNameInput, setTopicNameInput] = useState('');
