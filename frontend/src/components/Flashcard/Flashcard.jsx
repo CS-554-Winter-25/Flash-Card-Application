@@ -1,6 +1,3 @@
-// Flashcard renders a single flashcard with a front and back.
-// The front displays the question, and the back displays the answer.
-// If the card is clicked, it flips to reveal the other side.
 import { useState } from 'react'
 
 function Flashcard({ card }) {
@@ -19,7 +16,7 @@ function Flashcard({ card }) {
           </div>
         </div>
       </div>
-      {/* {currentPage === 'edit' && (
+      {/* 
         <div className="flashcard-buttons">
           <button className="edit-btn" onClick={(e) => { e.stopPropagation(); handleEdit(index); }}>Edit</button>
           <button className="delete-btn" onClick={(e) => { e.stopPropagation(); handleDelete(index); }}>Delete</button>
