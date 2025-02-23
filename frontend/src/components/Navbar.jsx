@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";
-import "./navbar.css"; // Import custom CSS
+import "./navbar.css";
 import logo from "./logo.jpg";
-import { getAdapter } from "axios";
 
-export default function FloatingNavbar({setCurrentPage}) {
+export default function FloatingNavbar() {
   const [darkMode, setDarkMode] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
   
   useEffect(() => {
     if (darkMode) {
@@ -16,7 +17,7 @@ export default function FloatingNavbar({setCurrentPage}) {
     }
   }, [darkMode]);
 
-  const handleLogin = () => setUser({ name: "Luiz Silva" });
+  const handleLogin = () => setUser({ name: "John Doe" });
   const handleLogout = () => setUser(null);
 
 
@@ -31,9 +32,9 @@ export default function FloatingNavbar({setCurrentPage}) {
         {user && (
           <>
           <div className="navbar-logged-buttons">
-            <button onClick={() => setCurrentPage('landing')} className="navbar-button">Main Menu</button>
-            <button onClick={() => setCurrentPage('view-all-topics')} className="navbar-button">My Topics</button>
-            <button onClick={() => setCurrentPage('add-topic')} className="navbar-button">New Topic</button>
+          <button onClick={() => navigate("/")} className="navbar-button">Main Menu</button>
+            <button onClick={() => navigate("/ViewAllTopics")} className="navbar-button">My Topics</button>
+            <button onClick={() => navigate("/AddTopic")} className="navbar-button">New Topic</button>
           </div>
           </>
         )}
