@@ -1,6 +1,6 @@
 import React from "react"
-import { useAppContext } from "../AppContext"
-import Flashcard from './Flashcard';
+import { useAppContext } from "../../AppContext"
+import Flashcard from '../Flashcard/Flashcard';
 
 function FlashcardList( { topic = undefined }) { 
   const { flashcards, topics } = useAppContext()

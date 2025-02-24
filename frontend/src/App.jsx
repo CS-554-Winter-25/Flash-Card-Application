@@ -1,6 +1,6 @@
 import { useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navigation from './components/Navigation';
+import Navigation from './components/Navigation/Navigation';
 import './App.css';
 import { handleDeleteFlashcard, handleViewFlashcard } from './components/ApiCall.jsx';
 
@@ -8,7 +8,7 @@ import { handleDeleteFlashcard, handleViewFlashcard } from './components/ApiCall
 import Navbar from './components/Navbar.jsx';
 
 /* Pages */
-import Home from './pages/Home.jsx'
+import Home from './pages/Home'
 import AddFlashcard from './pages/AddFlashcard';
 import AddTopic from './pages/AddTopic';
 import EditFlashcard from './pages/EditFlashcard';
