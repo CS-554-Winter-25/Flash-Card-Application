@@ -1,6 +1,8 @@
 from flask_restx import Resource, Namespace, abort, marshal, fields
 from src.models import DbTopic, db
 from sqlalchemy import exc
+from .auth import user_owns_topic, login_required
+from flask import g as request_state
 
 topic_namespace = Namespace("Topic", "routes to handle singular topics")
 
@@ -29,57 +31,51 @@ topic_model = topic_namespace.model('Topic', {
 
 @topic_namespace.route('/')
 class Topic(Resource):
+    method_decorators = [login_required]
 
     @topic_namespace.marshal_with(topic_model)
     @topic_namespace.expect(topic_args_by_id)
+    @user_owns_topic
     def get(self):
         topic_id = topic_args_by_id.parse_args().get('id')
-        return DbTopic.find_one( topic_id)
+        return DbTopic.find_by_id(topic_id, request_state.user.id)
 
     @topic_namespace.marshal_with(topic_model)
     @topic_namespace.expect(topic_args_post)
     def post(self):
         topic_body = topic_args_post.parse_args()
         try:
-            return DbTopic.create(db.session, topic_body.get('topic'))
+            return DbTopic.create(topic_body.get('topic'), request_state.user.id)
         except exc.IntegrityError:
             abort(400, f"Error creating topic")
 
     @topic_namespace.marshal_with(topic_model)
     @topic_namespace.expect(topic_args_put)
+    @user_owns_topic
     def put(self):
         topic_body = topic_args_put.parse_args()
         try:
-            topic = DbTopic.find_one(topic_body.get('id'))
-            topic.update(db.session, topic_body.get('topic'))
+            topic = DbTopic.find_by_id(topic_body.get('id'), request_state.user.id)
+            topic.update(topic_body.get('topic'))
             return topic
         except exc.IntegrityError:
             abort(400, f"Error updating topic")
 
     @topic_namespace.expect(topic_args_by_id)
+    @user_owns_topic
     def delete(self):
         topic_id = topic_args_by_id.parse_args().get('id')
-        topic = DbTopic.find_one(topic_id)
+        topic = DbTopic.find_by_id(topic_id, request_state.user.id)
         topic.delete(db.session)
         return 204
 
 
 @topic_namespace.route('/by-name')
 class TopicByName(Resource):
+    method_decorators = [login_required]
+
     @topic_namespace.marshal_with(topic_model)
     @topic_namespace.expect(topic_args_post)
     def get(self):
         topic_name = topic_args_post.parse_args().get('topic')
-        topic = DbTopic.query.filter_by(topic=topic_name).first()
-        if not topic:
-            abort(404, f"Topic with name '{topic_name}' not found")
-        return topic
-
-@topic_namespace.route('/all')
-class AllTopics(Resource):
-    @topic_namespace.marshal_with(topic_model, as_list=True)
-    def get(self):
-        topics = DbTopic.query.all()
-        if not topics:
-            abort(404, "No topics found")
-        return topics
+        return DbTopic.find_by_name(topic_name, request_state.user.id)

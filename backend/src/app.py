@@ -3,12 +3,15 @@ from flask_cors import CORS
 from src.models import db
 from src.routes import api
 from sqlalchemy import event
+from flask_session import Session
 
 app = Flask(__name__)
+app.config.from_prefixed_env()
 app.config["SESSION_SQLALCHEMY"] = db
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+app.config['SESSION_COOKIE_HTTPONLY'] = False
 db.init_app(app)
 api.init_app(app)
+Session(app)
 CORS(app)
 
 with app.app_context():
@@ -26,4 +29,4 @@ def hello():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='localhost', port=5000, debug=True)

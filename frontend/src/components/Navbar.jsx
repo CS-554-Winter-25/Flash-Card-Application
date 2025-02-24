@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";
 import "./navbar.css";
 import logo from "./logo.jpg";
+import {Login} from "./Navigation/Login.jsx";
 
 export default function FloatingNavbar() {
   const [darkMode, setDarkMode] = useState(false);
@@ -45,21 +46,9 @@ export default function FloatingNavbar() {
           {darkMode ? <Sun /> : <Moon />}
         </button>
       </div>
-      
-      <div className="navbar-login">
-        {user ? (
-            <button className="login-button" onClick={handleLogout}>
-              Logout
-            </button>
-          ) : (
-            <button className="login-button" onClick={handleLogin}>
-              Login with Google
-            </button>
-        )}
-      </div>
 
+        <Login />
 
-      
     </nav>
   );
 }

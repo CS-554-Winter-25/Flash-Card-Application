@@ -1,5 +1,7 @@
 from flask_restx import Resource, Namespace, abort, Model, fields
+from flask import g as request_state
 from src.models import db, DbFlashcard
+from .auth import login_required, user_owns_topic, user_owns_flashcard
 from sqlalchemy import select, exc
 
 flashcard_namespace = Namespace('Flashcard', "routes to handle singular flashcard resources")
@@ -30,19 +32,22 @@ flashcard_model = flashcard_namespace.model('Flashcard', {
 
 @flashcard_namespace.route('/')
 class Flashcard(Resource):
+    method_decorators = [login_required]
 
     @flashcard_namespace.marshal_with(flashcard_model)
     @flashcard_namespace.expect(flashcard_args_by_id)
+    @user_owns_flashcard
     def get(self):
         flashcard_id = flashcard_args_by_id.parse_args().get('id')
-        return DbFlashcard.find_one(flashcard_id)
+        return DbFlashcard.find_one(flashcard_id, request_state.user.id)
 
     @flashcard_namespace.marshal_with(flashcard_model)
     @flashcard_namespace.expect(flashcard_args_post)
+    @user_owns_topic
     def post(self):
         flashcard_body = flashcard_args_post.parse_args()
         try:
-            return DbFlashcard.create(db.session, flashcard_body.get('question'),
+            return DbFlashcard.create(flashcard_body.get('question'),
                                       flashcard_body.get('answer'),
                                       flashcard_body.get('topic_id'))
         except exc.IntegrityError:
@@ -50,18 +55,20 @@ class Flashcard(Resource):
 
     @flashcard_namespace.marshal_with(flashcard_model)
     @flashcard_namespace.expect(flashcard_args_put)
+    @user_owns_flashcard
     def put(self):
         flashcard_body = flashcard_args_put.parse_args()
         try:
-            flashcard = DbFlashcard.find_one(flashcard_body.get('id'))
-            flashcard.update(db.session, **flashcard_body)
+            flashcard = DbFlashcard.find_one(flashcard_body.get('id'), request_state.user.id)
+            flashcard.update(**flashcard_body)
             return flashcard
         except exc.IntegrityError:
             abort(400, f"Topic ({flashcard_body.get('topic_id')}) does not exist")
 
     @flashcard_namespace.expect(flashcard_args_by_id)
+    @user_owns_flashcard
     def delete(self):
         flashcard_id = flashcard_args_by_id.parse_args().get('id')
-        flashcard = DbFlashcard.find_one(flashcard_id)
-        flashcard.delete(db.session)
+        flashcard = DbFlashcard.find_one(flashcard_id, request_state.user.id)
+        flashcard.delete()
         return 204
