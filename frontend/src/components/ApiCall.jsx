@@ -53,7 +53,7 @@ export const handleViewFlashcard = async (flashcardId, setFlashcardData) => {
     
     const newTopicId = response.data.id;
     console.log('Topic added successfully with ID:', newTopicId);
-    alert(`Topic added successfully with ID: ${newTopicId}`);
+    alert('Topic added successfully');
 
     setNewTopicName('');
     
