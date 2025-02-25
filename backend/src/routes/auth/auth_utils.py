@@ -88,7 +88,7 @@ def user_owns_flashcard(func):
     @wraps(func)
     def check(*args, **kwargs):
         data = request.get_json() if request.is_json else {}
-        flashcard_id = data.get("fid", kwargs.get("id", request.args.get("id")))
+        flashcard_id = data.get("id", kwargs.get("id", request.args.get("id")))
 
         if "user" not in session:
             abort(401, "USER MUST BE LOGGED IN")
