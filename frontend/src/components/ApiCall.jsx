@@ -97,7 +97,7 @@ export const handleFetchFlashcardsByTopicID = async (topicIdInput, setTopicData)
   }
 
   try {
-    const response = await axios.get(`/topic/?id=${topicIdInput}`);
+    const response = await axios.get(`/topic/?topic_id=${topicIdInput}`);
     setTopicData({
       topicId: response.data.id,
       topicName: response.data.topic,
@@ -181,7 +181,7 @@ export const getTopics = async () => {
 
 export const getFlashcards = async () => {
   try {
-    const response = await axios.get(`/flashcards`);
+    const response = await axios.get(`/flashcards/`);
     console.log("spanish cards: ", response.data)
     return response.data; 
   } catch (error) {
