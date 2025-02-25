@@ -4,10 +4,11 @@ import { Sun, Moon } from "lucide-react";
 import "./navbar.css";
 import logo from "./logo.jpg";
 import {Login} from "./Navigation/Login.jsx";
+import {useIsAuthenticated} from "../hooks/isAuthenitcated.jsx";
 
 export default function FloatingNavbar() {
   const [darkMode, setDarkMode] = useState(false);
-  const [user, setUser] = useState(null);
+  const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -18,35 +19,28 @@ export default function FloatingNavbar() {
     }
   }, [darkMode]);
 
-  const handleLogin = () => setUser({ name: "John Doe" });
-  const handleLogout = () => setUser(null);
 
+    return (
+        <nav className="navbar">
 
-  return (
-    <nav className="navbar">
+            <div className="navbar-logo">
+                <img src={logo} alt="Logo" className="navbar-logo" />
+            </div>
 
-      <div className="navbar-logo">
-      <img src={logo} alt="Logo" className="navbar-logo" />
-      </div>
-
-      <div className="navbar-left">
-        {user && (
-          <>
-          <div className="navbar-logged-buttons">
-          <button onClick={() => navigate("/")} className="navbar-button">Main Menu</button>
-            <button onClick={() => navigate("/ViewAllTopics")} className="navbar-button">My Topics</button>
-            <button onClick={() => navigate("/AddTopic")} className="navbar-button">New Topic</button>
-          </div>
-          </>
-        )}
-      </div>
-      
-      <div className="navbar-right">
-        <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
-          {darkMode ? <Sun /> : <Moon />}
-        </button>
-      </div>
-
+            <div className="navbar-left">
+                {isAuthenticated && (
+                    <div className="navbar-logged-buttons">
+                        <button onClick={() => navigate("/")} className="navbar-button">Main Menu</button>
+                        <button onClick={() => navigate("/ViewAllTopics")} className="navbar-button">My Topics</button>
+                        <button onClick={() => navigate("/AddTopic")} className="navbar-button">New Topic</button>
+                    </div>
+                )}
+            </div>
+        <div className="navbar-right">
+            <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+                {darkMode ? <Sun /> : <Moon />}
+            </button>
+        </div>
         <Login />
 
     </nav>

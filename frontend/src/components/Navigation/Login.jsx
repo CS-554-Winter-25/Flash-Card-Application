@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 
 export function Login() {
     const isAuthenticated = useIsAuthenticated();
-    console.log(document.cookie)
     return (
         <div className="navbar-login">
         {isAuthenticated ? (

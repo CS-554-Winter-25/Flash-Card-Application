@@ -112,7 +112,7 @@ export const handleFetchFlashcardsByTopicID = async (topicIdInput, setTopicData)
 // Displays all created topics
 export const handleFetchAllFlashcardsByTopic = async (setTopicData) => {
   try {
-    const response = await axios.get(`/topic/all`);
+    const response = await axios.get(`/topics`);
     setTopicData(response.data); // Assuming response.data is an array of topics
   } catch (error) {
     console.error('Error fetching topic data:', error);
