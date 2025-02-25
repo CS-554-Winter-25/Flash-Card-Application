@@ -18,6 +18,7 @@ function ViewAllTopics() {
 
   return (
     <div>
+      <h1 className="all-topics-title">All Availible Topics</h1>
       <div className="topics-container">
         {topicData.length > 0 ? (
           topicData.map((topic) => (
