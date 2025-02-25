@@ -39,7 +39,7 @@ function ViewFlashcardsByTopicName() {
         <div>
           <h2>Topic: {topicData.topicName}</h2>
           <AppProvider>
-            <FlashcardList topic={topicData.topicName} />
+            <FlashcardList topic={topicData} />
           </AppProvider>
         </div>
       )}

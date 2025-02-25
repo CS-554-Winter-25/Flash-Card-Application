@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from '../utils/axiosClient.js';
 
 // Takes flashcard id as input and will produce the matching flashcard
 export const handleViewFlashcard = async (flashcardId, setFlashcardData) => {
@@ -8,7 +7,7 @@ export const handleViewFlashcard = async (flashcardId, setFlashcardData) => {
     throw new Error('Flashcard ID is required.');
   }
   try {
-    const response = await axios.get(`http://127.0.0.1:5000/flashcard/?id=${flashcardId}`);
+    const response = await axios.get(`/flashcard/?id=${flashcardId}`);
     setFlashcardData(response.data); 
     console.log(response.data)
     return response.data; 
@@ -27,7 +26,7 @@ export const handleViewFlashcard = async (flashcardId, setFlashcardData) => {
       throw new Error('All fields are required.');
     }
     try {
-      const response = await axios.post('http://127.0.0.1:5000/flashcard/', {
+      const response = await axios.post('/flashcard/', {
         ...newFlashcard,
         topic_id: topicIdInput 
       });
@@ -50,7 +49,7 @@ export const handleViewFlashcard = async (flashcardId, setFlashcardData) => {
   }
 
   try {
-    const response = await axios.post(`http://127.0.0.1:5000/topic/?topic=${encodeURIComponent(newTopicName)}`);
+    const response = await axios.post(`/topic/?topic=${encodeURIComponent(newTopicName)}`);
     
     const newTopicId = response.data.id;
     console.log('Topic added successfully with ID:', newTopicId);
@@ -77,7 +76,7 @@ export const handleDeleteFlashcard = async (flashcardId, setFlashcards, setNewFl
   }
 
   try {
-    await axios.delete(`http://127.0.0.1:5000/flashcard/?id=${flashcardId}`);
+    await axios.delete(`/flashcard/?id=${flashcardId}`);
 
     setFlashcards((prevFlashcards) => prevFlashcards.filter(flashcard => flashcard.id !== flashcardId));
     
@@ -98,7 +97,7 @@ export const handleFetchFlashcardsByTopicID = async (topicIdInput, setTopicData)
   }
 
   try {
-    const response = await axios.get(`http://127.0.0.1:5000/topic/?id=${topicIdInput}`);
+    const response = await axios.get(`/topic/?topic_id=${topicIdInput}`);
     setTopicData({
       topicId: response.data.id,
       topicName: response.data.topic,
@@ -113,7 +112,7 @@ export const handleFetchFlashcardsByTopicID = async (topicIdInput, setTopicData)
 // Displays all created topics
 export const handleFetchAllFlashcardsByTopic = async (setTopicData) => {
   try {
-    const response = await axios.get(`http://127.0.0.1:5000/topic/all`);
+    const response = await axios.get(`/topics`);
     setTopicData(response.data); // Assuming response.data is an array of topics
   } catch (error) {
     console.error('Error fetching topic data:', error);
@@ -129,11 +128,8 @@ export const handleFetchFlashcardsByTopicName = async (topicNameInput, setTopicD
   }
 
   try {
-    const response = await fetch(`http://127.0.0.1:5000/topic/by-name?topic=${encodeURIComponent(topicNameInput)}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch topic data.");
-    }
-    const data = await response.json();
+    const response = await axios.get(`/topic/by-name?topic=${topicNameInput}`);
+    const data = await response.data;
     setTopicData({
       id: data.id,
       topicName: data.topic,
@@ -153,7 +149,7 @@ export const handleUpdateFlashcard = async (flashcardId, updatedFlashcard, setTo
   }
 
   try {
-    await axios.put(`http://127.0.0.1:5000/flashcard/?id=${flashcardId}`, updatedFlashcard);
+    await axios.put(`/flashcard/?id=${flashcardId}`, updatedFlashcard);
 
     const updatedFlashcards = [...topicData.flashcards];
     updatedFlashcards[editingIndex] = {
@@ -175,7 +171,7 @@ export const handleUpdateFlashcard = async (flashcardId, updatedFlashcard, setTo
 
 export const getTopics = async () => {
   try {
-    const response = await axios.get(`http://127.0.0.1:5000/topics/`);
+    const response = await axios.get(`/topics/`);
     return response.data; 
   } catch (error) {
     console.error('Error fetching topics:', error);
@@ -183,10 +179,9 @@ export const getTopics = async () => {
   }
 };
 
-/* to do: need to make this method use different route to get all flashcards */
 export const getFlashcards = async () => {
   try {
-    const response = await axios.get(`http://127.0.0.1:5000/topic/by-name?topic=spanish`); // Note: hardcoded topic
+    const response = await axios.get(`/flashcards/`);
     console.log("spanish cards: ", response.data)
     return response.data; 
   } catch (error) {
