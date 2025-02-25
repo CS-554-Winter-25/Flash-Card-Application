@@ -319,3 +319,14 @@ button {
   margin-bottom: 40px;
   letter-spacing: 2px;
 }
+
+.all-topics-title {
+  font-size: 5em;
+  color: transparent;
+  background: linear-gradient(45deg, #00bcd4, #ff4081);
+  background-clip: text;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
