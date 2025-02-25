@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axiosClient.js';
 
 function FlashcardForm() {
   const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: 1 });
