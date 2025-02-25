@@ -14,12 +14,13 @@ class Flashcard(db.Model):
 
     @staticmethod
     def find_one(flashcard_id, user_id):
-        return db.one_or_404(select(Flashcard).filter(Flashcard.id == flashcard_id, Flashcard.topic.has(user_id = user_id)),
-                             description=f"Flashcard with ID {flashcard_id} belonging to user {user_id} not found")
+        return db.one_or_404(
+            select(Flashcard).filter(Flashcard.id == flashcard_id, Flashcard.topic.has(user_id=user_id)),
+            description=f"Flashcard with ID {flashcard_id} belonging to user {user_id} not found")
 
     @staticmethod
     def find_all(user_id):
-        return db.session.execute(select(Flashcard).filter(Flashcard.topic.has(user_id))).scalars().all()
+        return db.session.execute(select(Flashcard).filter(Flashcard.topic.has(user_id=user_id))).scalars().all()
 
     @classmethod
     def create(cls, question, answer, topic_id):
@@ -30,7 +31,8 @@ class Flashcard(db.Model):
 
     def update(self, **kwargs):
         for key, value in kwargs.items():
-            setattr(self, key, value)
+            if hasattr(self, key):
+                setattr(self, key, value)
         db.session.commit()
 
     def delete(self):

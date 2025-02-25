@@ -1,7 +1,6 @@
 import {useIsAuthenticated} from "../../hooks/isAuthenitcated.jsx";
 import {Link} from 'react-router-dom';
 
-
 export function Login() {
     const isAuthenticated = useIsAuthenticated();
     return (

@@ -179,10 +179,9 @@ export const getTopics = async () => {
   }
 };
 
-/* to do: need to make this method use different route to get all flashcards */
 export const getFlashcards = async () => {
   try {
-    const response = await axios.get(`/topic/by-name?topic=spanish`); // Note: hardcoded topic
+    const response = await axios.get(`/flashcards`);
     console.log("spanish cards: ", response.data)
     return response.data; 
   } catch (error) {

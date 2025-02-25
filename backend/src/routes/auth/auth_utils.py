@@ -30,7 +30,6 @@ def not_logged_in(func):
         if "user" in session:
             redirect(request.referrer)
         return func(*args, **kwargs)
-
     return check
 
 
@@ -40,9 +39,7 @@ def auth_response_decorator(api):
         @api.response(403, "USER DOES NOT HAVE PERMISSIONS TO COMPLETE OPERATION")
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs)
-
         return wrapper
-
     return wrap_route
 
 
@@ -72,6 +69,7 @@ def user_owns_topic_by_name(func):
     def check(*args, **kwargs):
         data = request.get_json() if request.is_json else {}
         topic_name = data.get("topic", kwargs.get("topic", request.args.get("topic")))
+
         if "user" not in session:
             abort(401, "USER MUST BE LOGGED IN")
         if topic_name is None:

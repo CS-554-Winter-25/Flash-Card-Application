@@ -22,11 +22,9 @@ export default function FloatingNavbar() {
 
     return (
         <nav className="navbar">
-
             <div className="navbar-logo">
                 <img src={logo} alt="Logo" className="navbar-logo" />
             </div>
-
             <div className="navbar-left">
                 {isAuthenticated && (
                     <div className="navbar-logged-buttons">
@@ -42,7 +40,6 @@ export default function FloatingNavbar() {
             </button>
         </div>
         <Login />
-
     </nav>
   );
 }

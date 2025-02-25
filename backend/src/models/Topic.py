@@ -20,7 +20,7 @@ class Topic(db.Model):
 
     @staticmethod
     def find_by_name(topic_name, user_id):
-        return db.one_or_404(select(Topic).filter_by(topic=topic_name, user_id=user_id),
+        return db.first_or_404(select(Topic).filter_by(topic=topic_name, user_id=user_id),
                              description=f"Topic with Name {topic_name} not found")
 
     @staticmethod

@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.config.from_prefixed_env()
 app.config["SESSION_SQLALCHEMY"] = db
 app.config['SESSION_COOKIE_HTTPONLY'] = False
+
 db.init_app(app)
 api.init_app(app)
 Session(app)
