@@ -128,11 +128,8 @@ export const handleFetchFlashcardsByTopicName = async (topicNameInput, setTopicD
   }
 
   try {
-    const response = await fetch(`/topic/by-name?topic=${encodeURIComponent(topicNameInput)}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch topic data.");
-    }
-    const data = await response.json();
+    const response = await axios.get(`/topic/by-name?topic=${topicNameInput}`);
+    const data = await response.data;
     setTopicData({
       id: data.id,
       topicName: data.topic,
@@ -185,7 +182,7 @@ export const getTopics = async () => {
 /* to do: need to make this method use different route to get all flashcards */
 export const getFlashcards = async () => {
   try {
-    const response = await axios.get(`/by-name?topic=spanish`); // Note: hardcoded topic
+    const response = await axios.get(`/topic/by-name?topic=spanish`); // Note: hardcoded topic
     console.log("spanish cards: ", response.data)
     return response.data; 
   } catch (error) {

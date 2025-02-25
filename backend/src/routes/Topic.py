@@ -1,12 +1,12 @@
 from flask_restx import Resource, Namespace, abort, marshal, fields
 from src.models import DbTopic, db
 from sqlalchemy import exc
-from .auth import user_owns_topic, login_required
+from .auth import user_owns_topic, login_required, user_owns_topic_by_name
 from flask import g as request_state
 
 topic_namespace = Namespace("Topic", "routes to handle singular topics")
 
-topic_args_post = topic_namespace.parser();
+topic_args_post = topic_namespace.parser()
 topic_args_post.add_argument('topic', type=str, required=True)
 
 topic_args_put = topic_args_post.copy()
@@ -76,6 +76,8 @@ class TopicByName(Resource):
 
     @topic_namespace.marshal_with(topic_model)
     @topic_namespace.expect(topic_args_post)
+    @user_owns_topic_by_name
     def get(self):
         topic_name = topic_args_post.parse_args().get('topic')
         return DbTopic.find_by_name(topic_name, request_state.user.id)
+

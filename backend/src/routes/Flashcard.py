@@ -6,7 +6,7 @@ from sqlalchemy import select, exc
 
 flashcard_namespace = Namespace('Flashcard', "routes to handle singular flashcard resources")
 
-flashcard_args_post = flashcard_namespace.parser();
+flashcard_args_post = flashcard_namespace.parser()
 flashcard_args_post.add_argument('question', type=str, required=True)
 flashcard_args_post.add_argument('answer', type=str, required=True)
 flashcard_args_post.add_argument('topic_id', type=int, required=True)

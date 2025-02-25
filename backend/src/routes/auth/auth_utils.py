@@ -49,36 +49,59 @@ def auth_response_decorator(api):
 def user_owns_topic(func):
     @wraps(func)
     def check(*args, **kwargs):
+        data = request.get_json() if request.is_json else {}
+        topic_id = data.get("topic_id", kwargs.get("topic_id", request.args.get("topic_id")))
+
         if "user" not in session:
             abort(401, "USER MUST BE LOGGED IN")
-        if "topic_id" not in request.args and "topic_id" not in kwargs:
+        if topic_id is None:
             abort(400, "TOPIC ID REQUIRED")
 
-        topic_id = int(kwargs.get("topic_id", request.args["topic_id"]))
         if not db.session.query(
                 db.session.query(DbTopic).filter(
-                    DbTopic.id == topic_id, DbTopic.user_id == session['user']['id'],
+                    DbTopic.id == int(topic_id), DbTopic.user_id == session['user']['id'],
                 ).exists()
         ).scalar():
             abort(403, "USER DOES NOT HAVE PERMISSIONS TO COMPLETE OPERATION")
+        return func(*args, **kwargs)
+    return check
 
+
+def user_owns_topic_by_name(func):
+    @wraps(func)
+    def check(*args, **kwargs):
+        data = request.get_json() if request.is_json else {}
+        topic_name = data.get("topic", kwargs.get("topic", request.args.get("topic")))
+        if "user" not in session:
+            abort(401, "USER MUST BE LOGGED IN")
+        if topic_name is None:
+            abort(400, "TOPIC ID REQUIRED")
+        if not db.session.query(
+                db.session.query(DbTopic).filter(
+                    DbTopic.topic == topic_name, DbTopic.user_id == session['user']['id'],
+                ).exists()
+        ).scalar():
+            abort(403, "USER DOES NOT HAVE PERMISSIONS TO COMPLETE OPERATION")
+        return func(*args, **kwargs)
     return check
 
 
 def user_owns_flashcard(func):
     @wraps(func)
     def check(*args, **kwargs):
+        data = request.get_json()
+        flashcard_id = data.get("flashcard_id", kwargs.get("flashcard_id", request.args.get("flashcard_id")))
+
         if "user" not in session:
             abort(401, "USER MUST BE LOGGED IN")
-        if "flashcard_id" not in request.args and "flashcard_id" not in kwargs:
+        if flashcard_id is None:
             abort(400, "FLASHCARD ID REQUIRED")
 
-        flashcard_id = int(kwargs.get("flashcard_id", request.args["flashcard_id"]))
         if not db.session.query(
                 db.session.query(DbTopic).filter(
-                    DbFlashcard.id == flashcard_id, DbFlashcard.topic.has(user_id=session['user']['id']),
+                    DbFlashcard.id == int(flashcard_id), DbFlashcard.topic.has(user_id=session['user']['id']),
                 ).exists()
         ).scalar():
             abort(403, "USER DOES NOT HAVE PERMISSIONS TO COMPLETE OPERATION")
-
+        return func(*args, **kwargs)
     return check

@@ -12,7 +12,7 @@ app.config['SESSION_COOKIE_HTTPONLY'] = False
 db.init_app(app)
 api.init_app(app)
 Session(app)
-CORS(app)
+CORS(app, origins=['http://127.0.0.1:5173'], supports_credentials=True)
 
 with app.app_context():
     @event.listens_for(db.engine, "connect")
