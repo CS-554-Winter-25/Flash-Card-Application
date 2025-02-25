@@ -1,28 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
 import { handleFetchAllFlashcardsByTopic } from '../components/ApiCall';
 
 function ViewAllTopics() {
+  const [topicData, setTopicData] = useState([]);
 
-  const [topicData, setTopicData] = useState({
-    topicId: null,
-    topicName: '',
-    flashcards: []
-  });
+  useEffect(() => {
+    const fetchTopics = async () => {
+      try {
+        await handleFetchAllFlashcardsByTopic(setTopicData);
+      } catch (error) {
+        console.error('Error fetching all topics:', error);
+      }
+    };
+
+    fetchTopics();
+  }, []); // Empty dependency array means this runs once when the component mounts
 
   return (
     <div>
-      <button
-        className="fetch-button"
-        onClick={async () => {
-          try {
-            await handleFetchAllFlashcardsByTopic(setTopicData);
-          } catch (error) {
-            console.error('Error fetching all topics:', error);
-          }
-        }}
-      >
-        Fetch Topics
-      </button>
       <div className="topics-container">
         {topicData.length > 0 ? (
           topicData.map((topic) => (
@@ -31,11 +26,11 @@ function ViewAllTopics() {
             </div>
           ))
         ) : (
-          <p>Click Fetch Topics to load data.</p>
+          <p>Loading topics...</p>
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default ViewAllTopics
+export default ViewAllTopics;
