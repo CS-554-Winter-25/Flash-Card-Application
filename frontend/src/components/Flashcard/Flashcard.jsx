@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 function Flashcard({ card }) {
+  if(!card) return null;
   const [isFlipped, setIsFlipped] = useState(false); 
 
   return (
@@ -16,12 +17,6 @@ function Flashcard({ card }) {
           </div>
         </div>
       </div>
-      {/* 
-        <div className="flashcard-buttons">
-          <button className="edit-btn" onClick={(e) => { e.stopPropagation(); handleEdit(index); }}>Edit</button>
-          <button className="delete-btn" onClick={(e) => { e.stopPropagation(); handleDelete(index); }}>Delete</button>
-        </div>
-      )} */}
     </div>
   );
 }
