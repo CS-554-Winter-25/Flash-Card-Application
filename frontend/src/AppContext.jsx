@@ -12,7 +12,6 @@ export function AppProvider({ children }) {
         try {
           const topics = await getTopics();
           setTopics(topics);
-          console.log("app context topics: ", topics[0])
         } catch (error) {
           console.error("Error fetching topics:", error);
         }
@@ -20,12 +19,11 @@ export function AppProvider({ children }) {
   
       fetchTopics();
     }, []);
-  
+
     useEffect(() => {
       const fetchFlashcards = async () => {
         try {
           const topicCards = await getFlashcards();
-          console.log("returned flashcards: ", topicCards)
           setFlashcards(topicCards.flashcards);
         } catch (error) {
           console.error("Error fetching topics:", error);
@@ -35,16 +33,16 @@ export function AppProvider({ children }) {
       fetchFlashcards();
     }, []);
   
-    // Value to be provided to consumers
     const value = {
       topics,
-      flashcards
+      setTopics,
+      flashcards,
+      setFlashcards
     };
   
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
   }
   
-  // Custom hook to use the context
   export function useAppContext() {
     return useContext(AppContext);
   }

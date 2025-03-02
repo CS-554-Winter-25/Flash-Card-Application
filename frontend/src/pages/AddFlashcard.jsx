@@ -1,19 +1,22 @@
-
-import { useState} from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { handleAddFlashcard } from '../components/ApiCall.jsx';
-import { useAppContext } from "../AppContext"; 
+import { useAppContext } from "../AppContext";
 
 function AddFlashcard() {
     const navigate = useNavigate();
-    const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: 1 });
+    const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: '' });
     const [topicName, setTopicName] = useState('');
     const [topicIdInput, setTopicIdInput] = useState('');
     const { topics } = useAppContext(); 
 
+    useEffect(() => {
+        console.log('Topics updated:', topics);
+    }, [topics]);
+
     const handleTopicInput = (e) => {
         try {
-            const input = e.target.value;
+            const input = e.target.value.trim();
             setTopicName(input);
             const topic = topics.find(t => t.topic.toLowerCase() === input.toLowerCase());
             if (!topic) {
@@ -21,9 +24,9 @@ function AddFlashcard() {
             }
             setTopicIdInput(topic.id);
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
 
     return (
         <div>
@@ -49,7 +52,7 @@ function AddFlashcard() {
                 onClick={async () => {
                     try {
                         await handleAddFlashcard(newFlashcard, topicIdInput, setNewFlashcard);
-                        navigate('/');
+                        navigate('/'); // not working
                     } catch (error) {
                         console.error('Error adding flashcard:', error);
                     }
@@ -58,7 +61,7 @@ function AddFlashcard() {
                 Add Flashcard
             </button>
         </div>
-    )
+    );
 }
 
-export default AddFlashcard
+export default AddFlashcard;

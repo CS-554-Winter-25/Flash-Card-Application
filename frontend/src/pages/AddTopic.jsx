@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { useAppContext } from '../AppContext';
 import { handleAddTopic } from '../components/ApiCall.jsx';
 
 function AddTopic() {
+    const { topics, setTopics } = useAppContext(); 
     const [newTopicName, setNewTopicName] = useState('');
-    const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: 1 });
+    const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: '' });
 
     return (
         <div>
@@ -16,7 +18,8 @@ function AddTopic() {
             <button
                 onClick={async () => {
                     try {
-                        await handleAddTopic(newTopicName, setNewTopicName, setNewFlashcard);  
+                        const resp = await handleAddTopic(newTopicName, setNewTopicName, setNewFlashcard);  
+                        setTopics((prevTopics) => [...prevTopics, { topic: resp.topic, id: resp.id }]);
                     } catch (error) {
                         console.error('Error adding topic:', error);
                     }
