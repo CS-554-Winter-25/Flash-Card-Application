@@ -41,32 +41,27 @@ export const handleViewFlashcard = async (flashcardId, setFlashcardData) => {
     }
   };
 
-
   // Creates a new Topic
   export const handleAddTopic = async (newTopicName, setNewTopicName, setNewFlashcard) => {
-  if (!newTopicName) {
-    throw new Error('Topic name is required.');
-  }
-
-  try {
-    const response = await axios.post(`/topic/?topic=${encodeURIComponent(newTopicName)}`);
-    
-    const newTopicId = response.data.id;
-    console.log('Topic added successfully with ID:', newTopicId);
-    alert('Topic added successfully');
-
-    setNewTopicName('');
-    
-    setNewFlashcard({ question: '', answer: '', topic_id: newTopicId });
-
-    return response.data;
-
-  } catch (error) {
-    console.error('Error creating topic:', error.response?.data || error);
-    alert('Error creating topic. Check console for details.');
-    throw error;
-  }
-};
+      if (!newTopicName) {
+        throw new Error('Topic name is required.');
+      }
+      try {
+        const response = await axios.post(`/topic/?topic=${encodeURIComponent(newTopicName)}`);
+        if (response.status === 200) {
+          const newTopicId = response.data.id;
+          console.log('Topic added successfully with ID:', newTopicId);
+          alert('Topic added successfully');
+          setNewTopicName('');
+          setNewFlashcard({ question: '', answer: '', topic_id: '' });
+          return response.data;
+        }
+      } catch (error) {
+        console.error('Error creating topic:', error.response?.data || error);
+        alert('Error creating topic. Check console for details.');
+        throw error;
+      }
+    };
 
 
 // Delete a flashcard
@@ -182,7 +177,7 @@ export const getTopics = async () => {
 export const getFlashcards = async () => {
   try {
     const response = await axios.get(`/flashcards/`);
-    console.log("spanish cards: ", response.data)
+    console.log("getFlashcards: ", response.data)
     return response.data; 
   } catch (error) {
     console.error('Error fetching topics:', error);
