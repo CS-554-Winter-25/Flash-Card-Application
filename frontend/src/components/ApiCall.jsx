@@ -107,13 +107,23 @@ export const handleFetchFlashcardsByTopicID = async (topicIdInput, setTopicData)
 export const fetchAllTopics = async () => {
   try {
     const response = await axios.get(`/topics`);
-    console.log('fetchAllTopics: ', response.data)
     return response.data; // Returns array of topic objects (or empty array if none found)
   } catch (error) {
     console.error('Error fetching topic data:', error);
     throw error;
   }
 };
+
+export const fetchFlashcardsByTopic = async (topic) => {
+  try {
+    const response = await axios.get(`/topic/by-name?topic=${topic}`);
+    return response.data.flashcards; // Returns array of flashcard objects (or empty array if none found)
+  } catch (error) {
+    console.error("Error fetching flashcard data:", error);
+    throw error;
+  }
+};
+
 
 // Takes topic name as input and returns all flashcards under that topic name (different than topic id)
 export const handleFetchFlashcardsByTopicName = async (topicNameInput, setTopicData) => {
