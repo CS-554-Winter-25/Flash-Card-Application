@@ -39,7 +39,7 @@ export default function FloatingNavbar() {
                 {darkMode ? <Sun /> : <Moon />}
             </button>
         </div>
-        <Login />
+        <Login className="navbar-login" />
     </nav>
   );
 }
