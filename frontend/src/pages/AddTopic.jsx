@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../AppContext';
 import { handleAddTopic } from '../components/ApiCall.jsx';
 
 function AddTopic() {
+    const navigate = useNavigate();
     const { topics, setTopics } = useAppContext(); 
     const [newTopicName, setNewTopicName] = useState('');
     const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: '' });
@@ -20,6 +22,7 @@ function AddTopic() {
                     try {
                         const resp = await handleAddTopic(newTopicName, setNewTopicName, setNewFlashcard);  
                         setTopics((prevTopics) => [...prevTopics, { topic: resp.topic, id: resp.id }]);
+                        navigate('/ViewAllTopics');
                     } catch (error) {
                         console.error('Error adding topic:', error);
                     }

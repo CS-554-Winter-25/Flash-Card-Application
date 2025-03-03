@@ -1,33 +1,44 @@
 import { useState, useEffect } from 'react';
-import { handleFetchAllFlashcardsByTopic } from '../components/ApiCall';
+import { Edit, Trash } from 'lucide-react';
+import { fetchAllTopics } from '../components/ApiCall';
 
 function ViewAllTopics() {
-  const [topicData, setTopicData] = useState([]);
+  const [topics, setTopics] = useState([]);
 
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        await handleFetchAllFlashcardsByTopic(setTopicData);
+        const response = await fetchAllTopics();
+        setTopics(response)
       } catch (error) {
         console.error('Error fetching all topics:', error);
       }
     };
 
     fetchTopics();
-  }, []); // Empty dependency array means this runs once when the component mounts
+  }, []); 
 
   return (
     <div>
-      <h1 className="all-topics-title">All Availible Topics</h1>
+      <h1 className="all-topics-title">All Available Topics</h1>
       <div className="topics-container">
-        {topicData.length > 0 ? (
-          topicData.map((topic) => (
+        {topics.length > 0 ? (
+          topics.map((topic) => (
             <div key={topic.id} className="topic-box">
               <p>{topic.topic}</p>
+              <a href={`/study/${topic.topic}`} className="study-link">Study</a>
+              <div className="topic-actions">
+                <button className="edit-icon">
+                  <Edit size={24} /> 
+                </button> 
+                <button className="delete-icon">
+                  <Trash size={24} /> 
+                </button> 
+              </div>
             </div>
           ))
         ) : (
-          <p>Loading topics...</p>
+          <p>No topics to display</p>
         )}
       </div>
     </div>
