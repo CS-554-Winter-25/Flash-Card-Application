@@ -8,25 +8,21 @@ function AddFlashcard() {
     const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: '' });
     const [topicName, setTopicName] = useState('');
     const [topicIdInput, setTopicIdInput] = useState('');
-    const { topics } = useAppContext(); 
+    const { topics, setTopics } = useAppContext(); 
 
     useEffect(() => {
         console.log('Topics updated:', topics);
     }, [topics]);
 
-    const handleTopicInput = (e) => {
-        try {
-            const input = e.target.value.trim();
-            setTopicName(input);
-            const topic = topics.find(t => t.topic.toLowerCase() === input.toLowerCase());
-            if (!topic) {
-                throw new Error('Topic not found');
-            }
-            setTopicIdInput(topic.id);
-        } catch (error) {
-            console.log(error.message);
+
+    
+    const handleTopicChange = (e) => {
+        setTopicName(e.target.value);
+        const selectedTopic = topics.find(topic => topic.topic === e.target.value);
+        if (selectedTopic) {
+            setTopicIdInput(selectedTopic.id);
         }
-    };
+      };
 
     return (
         <div>
@@ -42,12 +38,15 @@ function AddFlashcard() {
                 value={newFlashcard.answer}
                 onChange={(e) => setNewFlashcard({ ...newFlashcard, answer: e.target.value })}
             />
-            <input
-                type="text"
-                placeholder="Enter topic Name"
-                value={topicName}
-                onChange={handleTopicInput}
-            />
+            <select value={topicName} onChange={handleTopicChange} className="input">
+                <option value="" disabled>Select topic</option>
+                {topics.map((topic) => (
+                    <option key={topic.id} value={topic.topic}>
+                    {topic.topic}
+                    </option>
+                ))}
+            </select>
+
             <button
                 onClick={async () => {
                     try {
