@@ -7,6 +7,10 @@ function Flashcard({ card, onDelete, onUpdate }) {
   if(!card) return null;
   const [isFlipped, setIsFlipped] = useState(false); 
   const [isEditing, setIsEditing] = useState(false);
+  const [flashcards, setFlashcards] = useState([]);
+  const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: '' });
+  const [topicIdInput, setTopicIdInput] = useState(card.topic_id);
+  
 
   const handleEdit = (e) => {
     e.stopPropagation();
@@ -21,13 +25,17 @@ function Flashcard({ card, onDelete, onUpdate }) {
   const handleDelete = async (e) => {
     e.stopPropagation();
     try {
-      await handleDeleteFlashcard(card.id);
+      await handleDeleteFlashcard(
+        card.id,
+        setFlashcards,
+        setNewFlashcard,
+        topicIdInput
+      );
       console.log('Flashcard deleted:', card.id);
-      onDelete(card.id);
     } catch (error) {
       console.error('Error deleting flashcard:', error);
     }
-  };
+  }
 
   return (
     <div className="flashcard-wrapper">
