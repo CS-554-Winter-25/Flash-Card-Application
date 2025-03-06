@@ -148,7 +148,7 @@ export const handleFetchFlashcardsByTopicName = async (topicNameInput, setTopicD
 
 
 // Updates an existing flashcard with new data
-export const handleUpdateFlashcard = async (flashcardId, updatedFlashcard, setTopicData, topicData, editingIndex, setEditingIndex, setCurrentPage) => {
+export const handleUpdateFlashcard = async (flashcardId, updatedFlashcard, setTopicData, topicData, editingIndex, setEditingIndex) => {
   if (!flashcardId || !updatedFlashcard.question || !updatedFlashcard.answer) {
     throw new Error('All fields are required.');
   }
@@ -165,8 +165,7 @@ export const handleUpdateFlashcard = async (flashcardId, updatedFlashcard, setTo
     setTopicData({ ...topicData, flashcards: updatedFlashcards });
 
     setEditingIndex(null);
-    setCurrentPage('view-by-topic');
-
+    console.log('Flashcard updated successfully');
     alert('Flashcard updated successfully!');
   } catch (error) {
     console.error('Error updating flashcard:', error);

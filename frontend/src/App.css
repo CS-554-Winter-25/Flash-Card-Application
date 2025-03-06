@@ -330,3 +330,14 @@ button {
   margin-bottom: 40px;
   letter-spacing: 2px;
 }
+
+.flashcard-actions {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  z-index: 1;
+  transform: scale(0.8);
+}
