@@ -1,5 +1,14 @@
+:root {
+  --app-background-color: #ffffff;
+}
+
+.dark-mode {
+  --app-background-color: #121212;
+  /*linear-gradient(45deg, #1f1f1f, #37474f, #263238);*/
+}
+
 body {
-  background: linear-gradient(45deg, #1f1f1f, #37474f, #263238);
+  background: var(--app-background-color);
   background-size: 500% 500%; /* Increase the size to spread out the gradient more */
   animation: gradientAnimation 6s ease infinite; /* Speed up the animation to make the effect stronger */
   color: #f0f0f0;
