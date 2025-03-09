@@ -10,14 +10,14 @@ export function Login() {
                     className="login-button"
                     to="http://127.0.0.1:5000/auth/logout"
                 >
-                    Logout
+                    Log out
                 </Link>
             ) : (
                 <Link
                     className="login-button"
                     to="http://127.0.0.1:5000/auth/login"
                 >
-                    Login
+                    Log in
                 </Link>
             )}
         </div>
