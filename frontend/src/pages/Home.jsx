@@ -18,7 +18,7 @@ function Home() {
       </AppProvider>
       {isAuthenticated && (
         <div className="nav-btn-container">
-
+          
           <button onClick={() => navigate('/AddFlashcard')} className="nav-btn">
             <i className="fa fa-plus"></i> Add Flashcard
           </button>
@@ -30,6 +30,9 @@ function Home() {
           </button>
           <button onClick={() => navigate('/ViewAllTopics')} className="nav-btn">
             <i className="fa fa-th-list"></i> View All Topics
+          </button>
+          <button onClick={() => navigate('/Games')} className="nav-btn">
+            <i className="fa fa-gamepad"></i> Games
           </button>
         </div>
       )}

@@ -17,6 +17,10 @@ import ViewFlashcardByFlashcardID from './pages/ViewFlashcardByFlashcardID';
 import ViewFlashcardsByTopicID from './pages/ViewFlashcardsByTopicID';
 import ViewFlashcardsByTopicName from './pages/ViewFlashcardsByTopicName';
 import Study from './pages/Study'
+import GamesMenu from './pages/GamesMenu'; 
+import TimerGame from './pages/TimerGame'; 
+import QuizGame from './pages/QuizGame';
+
 
 function App() {
   const [editingIndex, setEditingIndex] = useState(null);
@@ -46,6 +50,9 @@ function App() {
         <Route path="/ViewAllTopics" element={<ViewAllTopics />} />
         <Route path="/EditFlashcard" element={<EditFlashcard />} />
         <Route path='/study/:topic' element={<Study />} />
+        <Route path="/Games" element={<GamesMenu />} /> 
+        <Route path="/Games/TimerGame" element={<TimerGame />} />
+        <Route path="/Games/QuizGame" element={<QuizGame />} />
       </Routes>
     </Router>
   )

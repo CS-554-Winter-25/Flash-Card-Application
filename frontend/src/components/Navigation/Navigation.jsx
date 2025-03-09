@@ -15,6 +15,7 @@ function Navigation({ currentPage, setCurrentPage }) {
           <button onClick={() => setCurrentPage('view-topic-by-topic-name')} className="nav-btn">View Flashcards by Topic Name</button>
           <button onClick={() => setCurrentPage('view-flashcards-by-topic-id')} className="nav-btn">View Flashcards by Topic ID</button>
           <button onClick={() => setCurrentPage('view-all-topics')} className="nav-btn">View All Topics</button>
+          <button onClick={() => setCurrentPage('Games')} className="nav-btn">Games</button>
         </>
       )}
     </div>

@@ -210,6 +210,29 @@ body {
   background-color: #ff4081 !important;
 }
 
+
+.timer-buttons {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  justify-content: center; /* Align buttons in the center */
+}
+
+.timer-button {
+  padding: 0.5em 1em;
+  background-color: #00bcd4 !important;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.timer-button:hover {
+  background-color: #ff4081 !important;
+}
+
+
 .nav-btn-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));  /* Auto adjust */
@@ -349,4 +372,51 @@ button {
   gap: 5px;
   z-index: 1;
   transform: scale(0.8);
+}
+
+.games-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.answer-container {
+  margin-top: 20px;
+}
+
+.answer-container input {
+  padding: 8px;
+  font-size: 16px;
+  width: 80%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.answer-container button {
+  padding: 8px 15px;
+  font-size: 16px;
+  margin-left: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.answer-container button:hover {
+  background-color: #218838;
+}
+
+.answer-container p {
+  font-size: 18px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.answer-container p:empty {
+  display: none;
+}
+
+.answer-container p::before {
+  content: "💡 ";
 }
