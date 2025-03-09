@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";
 import "./navbar.css";
 import logo from "./logo.jpg";
@@ -27,10 +27,10 @@ export default function FloatingNavbar() {
             </div>
             <div className="navbar-left">
                 {isAuthenticated && (
-                    <div className="navbar-logged-buttons">
-                        <button onClick={() => navigate("/")} className="navbar-button">Main Menu</button>
-                        <button onClick={() => navigate("/ViewAllTopics")} className="navbar-button">My Topics</button>
-                        <button onClick={() => navigate("/AddTopic")} className="navbar-button">New Topic</button>
+                    <div className="navbar-links">
+                        <Link to="/" className="navbar-link">Main Menu</Link>
+                        <Link to="/ViewAllTopics" className="navbar-link">My Topics</Link>
+                        <Link to="/AddTopic" className="navbar-link">New Topic</Link>
                     </div>
                 )}
             </div>
