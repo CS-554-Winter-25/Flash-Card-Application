@@ -172,14 +172,62 @@ body {
   flex-wrap: wrap;
   gap: 16px;
   padding: 16px;
-  font-size: 16px;
+  font-size: 32px;
+}
+
+.edit-icon {
+  color: var(--topic-box-text-color);
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+.edit-icon:hover {
+  color: var(--topics-box-hover-color);
+  transition: 0.2s ease;
+}
+
+.delete-icon {
+  color: var(--topic-box-text-color);
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+.delete-icon:hover {
+  color: var(--topics-box-hover-color);
+  transition: 0.2s ease;
 }
 
 .topic-actions {
-  display: flex;
+  display: flex; /* forces icons to be side by side */
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.topic-actions svg {
+  color: var(--navbar-text-color);
+}
+
+.edit-icon:hover svg {
+  color: var(--navbar-hover-color);
+  transition: 0.2s ease;
+}
+
+.delete-icon:hover svg {
+  color: var(--navbar-hover-color);
+  transition: 0.2s ease;
 }
 
 .topic-box {
+  display: flex;
+  flex-direction: column; /* forces child elements to occupy their own rows */
   color: var(--topic-box-text-color);
   background-color: var(--topic-box-bg-color);
   border: 1px solid #ddd;
@@ -219,7 +267,7 @@ body {
   cursor: pointer;
   gap: 10px;
   transition: 0.3s ease;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   position: relative;
 }
 
