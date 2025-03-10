@@ -19,7 +19,6 @@ export default function FloatingNavbar() {
     }
   }, [darkMode]);
 
-
     return (
         <nav className="navbar">
             <div className="navbar-logo">
@@ -36,7 +35,7 @@ export default function FloatingNavbar() {
             </div>
         <div className="navbar-right">
             <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
-                {darkMode ? <Sun /> : <Moon />}
+                {darkMode ? <Moon /> : <Sun />}
             </button>
         </div>
         <Login className="navbar-login" />

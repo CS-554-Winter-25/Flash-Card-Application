@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import { Edit, Trash } from 'lucide-react';
 import { fetchAllTopics } from '../components/ApiCall';
 
@@ -25,8 +26,7 @@ function ViewAllTopics() {
         {topics.length > 0 ? (
           topics.map((topic) => (
             <div key={topic.id} className="topic-box">
-              <p>{topic.topic}</p>
-              <a href={`/study/${topic.topic}`} className="study-link">Study</a>
+              <Link to={`/study/${topic.topic}`} className="topic-box-link">{topic.topic}</Link>
               <div className="topic-actions">
                 <button className="edit-icon">
                   <Edit size={24} /> 
