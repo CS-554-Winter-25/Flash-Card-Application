@@ -3,6 +3,8 @@
   --topic-box-text-color: black;
   --topic-box-hover-color: #008ac1;
   --topic-box-bg-color: #f9f9f9;
+  --text-color: black;
+  --flashcard-color: whitesmoke;
 }
 
 .dark-mode {
@@ -10,16 +12,22 @@
   --topic-box-text-color: #ffffff;
   --topic-box-hover-color: #a5dff9;
   --topic-box-bg-color: #292929;
+  --text-color: #ffffff;
+  --flashcard-color: #292929;
 }
 
 body {
   background: var(--app-background-color);
   background-size: 500% 500%; /* Increase the size to spread out the gradient more */
   animation: gradientAnimation 6s ease infinite; /* Speed up the animation to make the effect stronger */
-  color: #f0f0f0;
+  color: var(text-color);
   margin: 0;
   padding: 80px 0 0 0;
   font-family: "Archivo", sans-serif;
+}
+
+h1, h2, h3, p {
+  color: var(--text-color);
 }
 
 @keyframes gradientAnimation {
@@ -127,14 +135,29 @@ body {
   padding: 15px;
 }
 
+.dark-mode .flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #CCCCCC;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.125);
+  text-align: center;
+  padding: 15px;
+}
+
 .flashcard-front {
-  background-color: #263238;
-  color: #ffffff;
+  background-color: var(--flashcard-color);
+  color: var(--text-color);
 }
 
 .flashcard-back {
-  background-color: #37474f;
-  color: #ffffff;
+  background-color: var(--flashcard-color);
+  color: var(--text-color);
   transform: rotateY(180deg);
 }
 
@@ -203,6 +226,10 @@ body {
 .delete-icon:hover {
   color: var(--topics-box-hover-color);
   transition: 0.2s ease;
+}
+
+button .edit-icon {
+  border: none;
 }
 
 .topic-actions {
@@ -473,6 +500,123 @@ button {
   gap: 5px;
   z-index: 1;
   transform: scale(0.8);
+  border: none;
+}
+
+.games-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.answer-container {
+  margin-top: 20px;
+}
+
+.answer-container input {
+  padding: 8px;
+  font-size: 16px;
+  width: 80%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.answer-container button {
+  padding: 8px 15px;
+  font-size: 16px;
+  margin-left: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.answer-container button:hover {
+  background-color: #218838;
+}
+
+.answer-container p {
+  font-size: 18px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.answer-container p:empty {
+  display: none;
+}
+
+.answer-container p::before {
+  content: "💡 ";
+
+}
+
+.study-page button {
+  background: inherit;
+  color: var(--navbar-text-color);
+  border: solid var(--navbar-text-color) 2px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-left: auto;
+}
+
+.study-page button:hover {
+  color: var(--text-color);
+  background: inherit;
+  border: solid var(--navbar-hover-color) 2px;
+}
+
+.add-topic button {
+  background: inherit;
+  color: var(--navbar-text-color);
+  border: solid var(--navbar-text-color) 2px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-left: auto;
+}
+
+.add-topic button:hover {
+  color: var(--text-color);
+  background: inherit;
+  border: solid var(--navbar-hover-color) 2px;
+}
+
+.study-page button {
+  background: inherit;
+  color: var(--navbar-text-color);
+  border: solid var(--navbar-text-color) 2px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-left: auto;
+}
+
+.study-page button:hover {
+  color: var(--text-color);
+  background: inherit;
+  border: solid var(--navbar-hover-color) 2px;
+}
+
+.add-topic button {
+  background: inherit;
+  color: var(--navbar-text-color);
+  border: solid var(--navbar-text-color) 2px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-left: auto;
+}
+
+.add-topic button:hover {
+  color: var(--text-color);
+  background: inherit;
+  border: solid var(--navbar-hover-color) 2px;
 }
 
 .games-container {

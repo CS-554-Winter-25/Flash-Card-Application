@@ -10,7 +10,7 @@ function AddTopic() {
     const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: '' });
 
     return (
-        <div>
+        <div className='add-topic'>
             <input
                 type="text"
                 placeholder="Enter new topic name"

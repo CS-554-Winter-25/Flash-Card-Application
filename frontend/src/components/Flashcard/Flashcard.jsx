@@ -43,18 +43,18 @@ function Flashcard({ card, onDelete, onUpdate }) {
         onClick={() => setIsFlipped((isFlipped) => !isFlipped)}> 
         <div className="flashcard-inner">
           <div className="flashcard-front">
-            <p><strong>Q:</strong> {card.question}</p>
+            <p>{card.question}</p>
             <div className="flashcard-actions">
-              <button onClick={handleEdit}>
-                <Edit size={18} />
+              <button className='edit-icon' onClick={handleEdit}>
+                <Edit size={20} />
               </button>
-              <button onClick={ handleDelete }>
-                <Trash size={18} />
+              <button className='delete-icon' onClick={ handleDelete }>
+                <Trash size={20} />
               </button>
             </div>
           </div>
           <div className="flashcard-back">
-            <p><strong>A:</strong> {card.answer}</p>
+            <p>{card.answer}</p>
           </div>
         </div>
       </div>
