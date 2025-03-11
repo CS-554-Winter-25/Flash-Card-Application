@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import { Edit, Trash } from 'lucide-react';
 import { fetchAllTopics } from '../components/ApiCall';
 
 function ViewAllTopics() {
+  const [darkMode, setDarkMode] = useState(false);
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
@@ -18,6 +20,14 @@ function ViewAllTopics() {
     fetchTopics();
   }, []); 
 
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [darkMode]);
+
   return (
     <div>
       <h1 className="all-topics-title">All Available Topics</h1>
@@ -25,14 +35,13 @@ function ViewAllTopics() {
         {topics.length > 0 ? (
           topics.map((topic) => (
             <div key={topic.id} className="topic-box">
-              <p>{topic.topic}</p>
-              <a href={`/study/${topic.topic}`} className="study-link">Study</a>
+              <Link to={`/study/${topic.topic}`} className="topic-box-link">{topic.topic}</Link>
               <div className="topic-actions">
                 <button className="edit-icon">
-                  <Edit size={24} /> 
+                  <Edit size={20} /> 
                 </button> 
                 <button className="delete-icon">
-                  <Trash size={24} /> 
+                  <Trash size={20} /> 
                 </button> 
               </div>
             </div>

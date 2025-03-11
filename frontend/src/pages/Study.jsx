@@ -12,6 +12,7 @@ const keys = {
 
 function Study() {
   const { topic } = useParams();
+  const [darkMode, setDarkMode] = useState(false);
   const [mode, setMode] = useState('sequential')
   const [flashcards, setFlashcards] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -29,6 +30,14 @@ function Study() {
 
     fetchFlashcards();
   }, []); 
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [darkMode]);
 
   const handleKeyPress = (event) => {
     // Prevent screen from moving up/down on up/down arrow keys
@@ -74,13 +83,13 @@ function Study() {
   return (
     <div>
       {flashcards.length > 0 ? (
-        <div>
-          <button onClick={() => setMode('sequential')}>Sequential</button>
+        <div className='study-page'>
+          <button className='study-page-btn' onClick={() => setMode('sequential')}>Sequential</button>
           <button onClick={() => setMode('spaced repetition')}>Spaced Repetition</button>
           <p>current mode: {mode}</p>
           {mode === 'sequential' && <p>use up arrow to mark card correct, down for incorrect</p>}
 
-          <h1>Topic: {topic}</h1>
+          <h1>{topic}</h1>
           {mode === 'sequential' && <h3>number correct: {numCorrect}</h3>}
           <div className="flashcards-container">
             {flashcards.length > 0 && (
