@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchFlashcardsByTopic } from '../components/ApiCall';
 import Flashcard from '../components/Flashcard/Flashcard';
 
@@ -11,12 +11,14 @@ const keys = {
 }
 
 function Study() {
+  const navigate = useNavigate();
   const { topic } = useParams();
   const [darkMode, setDarkMode] = useState(false);
-  const [mode, setMode] = useState('sequential')
+  const [mode, setMode] = useState('manual')
   const [flashcards, setFlashcards] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0)
   const [numCorrect, setNumCorrect] = useState(0)
+  const [accuracy, setAccuracy] = useState(0)
 
   useEffect(() => { 
     const fetchFlashcards = async () => {
@@ -31,6 +33,7 @@ function Study() {
     fetchFlashcards();
   }, []); 
 
+  // Move to App.jsx ?
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add("dark-mode");
@@ -40,7 +43,7 @@ function Study() {
   }, [darkMode]);
 
   const handleKeyPress = (event) => {
-    // Prevent screen from moving up/down on up/down arrow keys
+    // Prevents screen from moving up/down on up/down arrow keys 
     if (event.key === keys.down || event.key === keys.up)  { event.preventDefault() }
 
     setCurrentIndex((prevIndex) => {
@@ -57,18 +60,18 @@ function Study() {
       }
     })
 
+    // Updating numCorrect also updates accuracy 
     setNumCorrect((prevNumCorrect) => {
-      if (event.key === keys.up) {
-        if (prevNumCorrect <= flashcards.length - 1) return prevNumCorrect + 1
-        else return prevNumCorrect
+      let newNumCorrect = prevNumCorrect
+      if (event.key === keys.up && prevNumCorrect < flashcards.length) {
+        newNumCorrect = prevNumCorrect + 1
       }
-      else if (event.key === keys.down) {
-        if (prevNumCorrect - 1 >= 0) return prevNumCorrect - 1
-        else return prevNumCorrect
+      else if (event.key === keys.down && prevNumCorrect > 0) {
+        newNumCorrect = prevNumCorrect - 1
       }
-      else {
-        return prevNumCorrect
-      }
+      const newAccuracy = (newNumCorrect / flashcards.length) * 100;
+      setAccuracy(newAccuracy);
+      return newNumCorrect;
     })
   };
 
@@ -81,16 +84,18 @@ function Study() {
   }, [flashcards]); // removing leads to stale state issue; handleKeyPress references flashcards array
 
   return (
-    <div>
+    <div className='study-container'>
       {flashcards.length > 0 ? (
         <div className='study-page'>
-          <button className='study-page-btn' onClick={() => setMode('sequential')}>Sequential</button>
-          <button onClick={() => setMode('spaced repetition')}>Spaced Repetition</button>
-          <p>current mode: {mode}</p>
-          {mode === 'sequential' && <p>use up arrow to mark card correct, down for incorrect</p>}
-
           <h1>{topic}</h1>
-          {mode === 'sequential' && <h3>number correct: {numCorrect}</h3>}
+          <div className='study-page-btns'>
+            <button onClick={() => setMode('manual')}>Manual</button>
+            <button onClick={() => setMode('spaced repetition')}>Spaced Repetition</button>
+          </div>
+          <div style={{ visibility: mode === 'manual' ? 'visible' : 'hidden' }}>
+            <p>Press up key to mark cards correct, down key to mark incorrect</p>
+            <h3>Accuracy:  <span className='accuracy-span'> {Number(accuracy).toFixed(0)}% </span></h3>
+          </div>
           <div className="flashcards-container">
             {flashcards.length > 0 && (
               <Flashcard
@@ -101,7 +106,10 @@ function Study() {
           </div>
         </div>
       ) : (
-        <p>No flashcards for this topic</p>
+        <div className='study-page'>
+          <h3>No flashcards for this topic</h3>
+          <button onClick={() => navigate('/AddFlashcard')}>Add flashcards</button>
+        </div>
       )}
     </div>
   );
