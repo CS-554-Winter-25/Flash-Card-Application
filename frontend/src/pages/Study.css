@@ -1,0 +1,16 @@
+.black {
+	color: black;
+}
+.low-acc {
+  color: red;
+}
+.medium-acc {
+  color: orange;
+}
+.high-acc {
+  color: green;
+}
+.accuracy-span {
+  display: inline-block;
+  min-width: 60px; /* prevents "Accuracy" from shifting horizontally on page */
+}
