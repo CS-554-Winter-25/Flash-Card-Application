@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchFlashcardsByTopic } from '../components/ApiCall';
-import Flashcard from '../components/Flashcard/Flashcard';
+import { fetchFlashcardsByTopic } from '../../components/ApiCall';
+import Flashcard from '../../components/Flashcard/Flashcard';
 import './Study.css'
 
 const keys = {
