@@ -99,6 +99,11 @@ h1, h2, h3, p {
   margin-top: 20px;
 }
 
+.flashcards-container {
+  display: flex;
+  justify-content: center;
+}
+
 .flashcard {
   width: 300px;
   height: 150px;
@@ -467,8 +472,6 @@ button {
   background-color: #45a049;
 }
 
-
-
 .main-menu-title {
   font-size: 5em;
   color: transparent;
@@ -551,23 +554,6 @@ button {
 
 }
 
-.study-page button {
-  background: inherit;
-  color: var(--navbar-text-color);
-  border: solid var(--navbar-text-color) 2px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s ease;
-  margin-left: auto;
-}
-
-.study-page button:hover {
-  color: var(--text-color);
-  background: inherit;
-  border: solid var(--navbar-hover-color) 2px;
-}
-
 .add-topic button {
   background: inherit;
   color: var(--navbar-text-color);
@@ -580,23 +566,6 @@ button {
 }
 
 .add-topic button:hover {
-  color: var(--text-color);
-  background: inherit;
-  border: solid var(--navbar-hover-color) 2px;
-}
-
-.study-page button {
-  background: inherit;
-  color: var(--navbar-text-color);
-  border: solid var(--navbar-text-color) 2px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s ease;
-  margin-left: auto;
-}
-
-.study-page button:hover {
   color: var(--text-color);
   background: inherit;
   border: solid var(--navbar-hover-color) 2px;

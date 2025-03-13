@@ -16,7 +16,7 @@ import ViewAllTopics from './pages/ViewAllTopics';
 import ViewFlashcardByFlashcardID from './pages/ViewFlashcardByFlashcardID';
 import ViewFlashcardsByTopicID from './pages/ViewFlashcardsByTopicID';
 import ViewFlashcardsByTopicName from './pages/ViewFlashcardsByTopicName';
-import Study from './pages/Study'
+import Study from './pages/Study/Study'
 import GamesMenu from './pages/GamesMenu'; 
 import TimerGame from './pages/TimerGame'; 
 import QuizGame from './pages/QuizGame';

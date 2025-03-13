@@ -1,0 +1,26 @@
+.black { color: black; }
+.low-acc { color: red; }
+.medium-acc { color: orange; }
+.high-acc { color: green; }
+
+.accuracy-span {
+  display: inline-block;
+  min-width: 60px; /* prevents "Accuracy" from shifting horizontally on page */
+}
+
+.study-page button {
+  background: inherit;
+  color: var(--navbar-text-color);
+  border: solid var(--navbar-text-color) 2px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-left: auto;
+}
+
+.study-page button:hover {
+  color: var(--text-color);
+  background: inherit;
+  border: solid var(--navbar-hover-color) 2px;
+}
