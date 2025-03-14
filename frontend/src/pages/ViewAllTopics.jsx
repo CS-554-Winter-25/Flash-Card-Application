@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { Edit, Trash } from 'lucide-react';
 import { fetchAllTopics } from '../components/ApiCall';
+import './topic.css'
 
 function ViewAllTopics() {
   const [topics, setTopics] = useState([]);

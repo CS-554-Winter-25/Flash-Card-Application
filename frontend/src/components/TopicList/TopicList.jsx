@@ -1,5 +1,6 @@
 import React from "react"
 import { useAppContext } from "../../AppContext"
+import '../../pages/topic.css'
 
 function TopicList() {
   const { topics } = useAppContext()

@@ -4,6 +4,7 @@ import { handleFetchFlashcardsByTopicName } from '../components/ApiCall.jsx';
 import FlashcardList from '../components/FlashcardList/FlashcardList.jsx';
 import { useAppContext } from '../AppContext.jsx';
 import React from "react";
+import './Games.css'
 
 
 

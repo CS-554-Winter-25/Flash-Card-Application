@@ -3,6 +3,7 @@ import { handleFetchFlashcardsByTopicName } from '../components/ApiCall.jsx';
 import { useAppContext } from '../AppContext.jsx';
 import React from "react";
 import FlashcardList from '../components/FlashcardList/FlashcardList.jsx';
+import './Games.css'
 
 function TimerGame() {
   const [topicName, setTopicName] = useState('');
