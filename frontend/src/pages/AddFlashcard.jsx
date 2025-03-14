@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { handleAddFlashcard } from '../components/ApiCall.jsx';
 import { useAppContext } from "../AppContext";
@@ -8,14 +8,8 @@ function AddFlashcard() {
     const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '', topic_id: '' });
     const [topicName, setTopicName] = useState('');
     const [topicIdInput, setTopicIdInput] = useState('');
-    const { topics, setTopics } = useAppContext(); 
+    const { topics } = useAppContext(); 
 
-    useEffect(() => {
-        console.log('Topics updated:', topics);
-    }, [topics]);
-
-
-    
     const handleTopicChange = (e) => {
         setTopicName(e.target.value);
         const selectedTopic = topics.find(topic => topic.topic === e.target.value);
@@ -51,7 +45,7 @@ function AddFlashcard() {
                 onClick={async () => {
                     try {
                         await handleAddFlashcard(newFlashcard, topicIdInput, setNewFlashcard);
-                        navigate('/'); // not working
+                        navigate('/'); // redirect to stuyd/:topic?
                     } catch (error) {
                         console.error('Error adding flashcard:', error);
                     }

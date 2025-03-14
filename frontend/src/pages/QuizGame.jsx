@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { AppProvider } from '../AppContext.jsx';
 import { handleFetchFlashcardsByTopicName } from '../components/ApiCall.jsx';
 import { useAppContext } from '../AppContext.jsx';
 import React from "react";
@@ -76,10 +75,7 @@ function TimerGame() {
       {topicData.flashcards.length > 0 && currentIndex < topicData.flashcards.length && (
         <div>
           <h2>Topic: {topicData.topicName}</h2>
-          <AppProvider>
-            <FlashcardList topic={{ ...topicData, flashcards: [topicData.flashcards[currentIndex]] }} />
-          </AppProvider>
-
+          <FlashcardList topic={{ ...topicData, flashcards: [topicData.flashcards[currentIndex]] }} />
           <div className="answer-container">
             <input 
               type="text" 

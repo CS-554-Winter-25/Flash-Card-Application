@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import { AppProvider } from '../AppContext.jsx';
 import { handleFetchFlashcardsByTopicName } from '../components/ApiCall.jsx';
 import FlashcardList from '../components/FlashcardList/FlashcardList.jsx';
 import { useAppContext } from '../AppContext.jsx';
@@ -120,9 +119,7 @@ function TimerGame() {
       {topicData.flashcards.length > 0 && (
         <div>
           <h2>Topic: {topicData.topicName}</h2>
-          <AppProvider>
-            <FlashcardList topic={topicData} />
-          </AppProvider>
+          <FlashcardList topic={topicData} />
         </div>
       )}
     </div>

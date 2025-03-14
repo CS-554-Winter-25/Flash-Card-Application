@@ -1,23 +1,18 @@
-import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";
 import "./navbar.css";
 import logo from "./logo.jpg";
 import {Login} from "./Navigation/Login.jsx";
 import {useIsAuthenticated} from "../hooks/isAuthenitcated.jsx";
+import { useAppContext } from '../AppContext'
 
 export default function FloatingNavbar() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, toggleDarkMode } = useAppContext();
   const isAuthenticated = useIsAuthenticated();
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-  }, [darkMode]);
+
+  const handleClick = () => {
+    toggleDarkMode();
+  }
 
     return (
         <nav className="navbar">
@@ -34,7 +29,7 @@ export default function FloatingNavbar() {
                 )}
             </div>
         <div className="navbar-right">
-            <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+            <button className="theme-toggle" onClick={handleClick}>
                 {darkMode ? <Moon /> : <Sun />}
             </button>
         </div>
