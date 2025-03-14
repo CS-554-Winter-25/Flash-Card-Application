@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { AppProvider } from '../AppContext.jsx';
 import { handleFetchFlashcardsByTopicName } from '../components/ApiCall.jsx';
 import FlashcardList from '../components/FlashcardList/FlashcardList.jsx';
 import { useAppContext } from "../AppContext";
@@ -53,9 +52,7 @@ function ViewFlashcardsByTopicName() {
       {topicData.flashcards && topicData.flashcards.length > 0 && (
         <div>
           <h2>Topic: {topicData.topicName}</h2>
-          <AppProvider>
-            <FlashcardList topic={topicData} />
-          </AppProvider>
+          <FlashcardList topic={topicData} />
         </div>
       )}
     </div>

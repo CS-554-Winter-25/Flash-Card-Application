@@ -20,7 +20,6 @@ const accuracyColorClasses = [
 function Study() {
   const navigate = useNavigate();
   const { topic } = useParams();
-  const [darkMode, setDarkMode] = useState(false);
   const [mode, setMode] = useState('manual')
   const [flashcards, setFlashcards] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -40,15 +39,6 @@ function Study() {
 
     fetchFlashcards();
   }, []); 
-
-  // Move to App.jsx ?
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-  }, [darkMode]);
 
   useEffect(() => {
     if (cardsMarked > 0) {

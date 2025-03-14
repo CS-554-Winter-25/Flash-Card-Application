@@ -4,7 +4,6 @@ import { Edit, Trash } from 'lucide-react';
 import { fetchAllTopics } from '../components/ApiCall';
 
 function ViewAllTopics() {
-  const [darkMode, setDarkMode] = useState(false);
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
@@ -19,14 +18,6 @@ function ViewAllTopics() {
 
     fetchTopics();
   }, []); 
-
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-  }, [darkMode]);
 
   return (
     <div>

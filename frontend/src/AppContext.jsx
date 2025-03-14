@@ -4,8 +4,25 @@ import { getTopics, getFlashcards } from './components/ApiCall'
 export const AppContext = createContext();
 
 export function AppProvider({ children }) {
+    const [darkMode, setDarkMode] = useState(false);
     const [topics, setTopics] = useState([]);
     const [flashcards, setFlashcards] = useState([]);
+
+    const toggleDarkMode = () => {
+      console.log('inside toggleDarkMode')
+      console.log(darkMode)
+      setDarkMode(!darkMode)
+    };
+
+      useEffect(() => {
+        console.log("Dark mode state:", darkMode);
+        if (darkMode) {
+          document.body.classList.add("dark-mode");
+        } else {
+          console.log("Removed dark mode")
+          document.body.classList.remove("dark-mode");
+        }
+      }, [darkMode]);
 
     useEffect(() => {
       const fetchTopics = async () => {
@@ -37,7 +54,10 @@ export function AppProvider({ children }) {
       topics,
       setTopics,
       flashcards,
-      setFlashcards
+      setFlashcards,
+      darkMode,
+      setDarkMode,
+      toggleDarkMode
     };
   
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
