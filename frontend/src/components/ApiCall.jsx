@@ -193,3 +193,27 @@ export const getFlashcards = async () => {
     throw error; 
   }
 };
+
+// Edit a Topic
+export const handleEditTopic = async (topicId, updatedTopicName) => {
+  if (!topicId) {
+    throw new Error('Topic ID is required')
+  }
+  if (!updatedTopicName) {
+    throw new Error('Updated topic name is required.');
+  }
+  try {
+    console.log("Updated topic name:", updatedTopicName);
+    const response = await axios.put(`/topic/?topic=${topicId}`,
+    { topic: updatedTopicName, topic_id: topicId });
+    if (response.status === 200) {
+      console.log('Topic updated successfully:', response.data);
+      alert('Topic updated successfully!');
+      return response.data;
+    }
+  } catch (error) {
+    console.error('Error updating topic:', error.response?.data || error);
+    alert('Error updating topic. Check console for details.');
+    throw error;
+  }
+};
