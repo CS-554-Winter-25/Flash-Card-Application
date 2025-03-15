@@ -62,7 +62,10 @@ function Flashcard({ card, onDelete, onUpdate }) {
         <EditFlashcard
           card={card}
           onSave={handleSave}
-          onCancel={() => setIsEditing(false)}
+          onCancel={() => {
+            console.log('Canceled clicked in editflashcard form')
+            setIsEditing(false)
+          }}
         />
       )}
     </div>
