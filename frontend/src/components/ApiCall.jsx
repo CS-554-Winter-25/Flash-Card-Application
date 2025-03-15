@@ -193,3 +193,48 @@ export const getFlashcards = async () => {
     throw error; 
   }
 };
+
+// Edit a Topic
+export const handleEditTopic = async (topicId, updatedTopicName) => {
+  if (!topicId) {
+    throw new Error('Topic ID is required')
+  }
+  if (!updatedTopicName) {
+    throw new Error('Updated topic name is required.');
+  }
+  try {
+    console.log("Updated topic name:", updatedTopicName);
+    const response = await axios.put(`/topic/?topic=${topicId}`,
+    { topic: updatedTopicName, topic_id: topicId });
+    if (response.status === 200) {
+      console.log('Topic updated successfully:', response.data);
+      alert('Topic updated successfully!');
+      return response.data;
+    }
+  } catch (error) {
+    console.error('Error updating topic:', error.response?.data || error);
+    alert('Error updating topic. Check console for details.');
+    throw error;
+  }
+};
+
+// Delete a Topic
+export const handleDeleteTopic = async (topicId, setTopics) => {
+  if (!topicId) {
+    throw new Error('Topic ID is required.');
+  }
+
+  try {
+    await axios.delete(`/topic/?topic_id=${topicId}`);
+
+    setTopics((prevTopics) => {
+      const updatedTopics = prevTopics.filter((topic) => topic.id !== topicId);
+      return updatedTopics;
+    });
+
+    alert('Topic deleted successfully!');
+  } catch (error) {
+    console.error('API call: error deleting topic:', error);
+    throw error;
+  }
+};

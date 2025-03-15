@@ -4,7 +4,7 @@ import { handleUpdateFlashcard, handleDeleteFlashcard } from '../components/ApiC
 import { useAppContext } from "../AppContext";
 import axios from 'axios';
 
-function EditFlashcard( {card} ) {
+function EditFlashcard( {card, onCancel} ) {
   const navigate = useNavigate();
   const [updatedFlashcard, setupdatedFlashcard] = useState({ question: card.question, answer: card.answer, topic_id: card.topic_id });
   const [topicName, setTopicName] = useState('');
@@ -67,7 +67,10 @@ function EditFlashcard( {card} ) {
         >
           Save Changes
         </button>
-        <button onClick={() => navigate ()}
+        <button onClick={() => {
+          console.log('Clicked Cancel');
+          onCancel();
+        }}
           style={{ ...styles.button, ...styles.cancelButton }}
         >
           Cancel

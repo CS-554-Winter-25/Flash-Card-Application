@@ -32,6 +32,7 @@ function Flashcard({ card, onDelete, onUpdate }) {
         topicIdInput
       );
       console.log('Flashcard deleted:', card.id);
+      window.location.reload();
     } catch (error) {
       console.error('Error deleting flashcard:', error);
     }
@@ -62,7 +63,10 @@ function Flashcard({ card, onDelete, onUpdate }) {
         <EditFlashcard
           card={card}
           onSave={handleSave}
-          onCancel={() => setIsEditing(false)}
+          onCancel={() => {
+            console.log('Canceled clicked in editflashcard form')
+            setIsEditing(false)
+          }}
         />
       )}
     </div>
