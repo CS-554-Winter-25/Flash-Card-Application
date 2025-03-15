@@ -32,6 +32,7 @@ function Flashcard({ card, onDelete, onUpdate }) {
         topicIdInput
       );
       console.log('Flashcard deleted:', card.id);
+      window.location.reload();
     } catch (error) {
       console.error('Error deleting flashcard:', error);
     }

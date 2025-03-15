@@ -11,7 +11,7 @@ function EditFlashcard( {card, onCancel} ) {
   const [topicIdInput, setTopicIdInput] = useState(card.topic_id);
   const [editingIndex, setEditingIndex] = useState(null);
   const [topicData, setTopicData] = useState({ id: '', topicName: '', flashcards: []});
-  const { topics } = use_AppContext();
+  const { topics } = useAppContext();
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleSave = async () => {
