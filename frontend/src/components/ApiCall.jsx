@@ -217,3 +217,24 @@ export const handleEditTopic = async (topicId, updatedTopicName) => {
     throw error;
   }
 };
+
+// Delete a Topic
+export const handleDeleteTopic = async (topicId, setTopics) => {
+  if (!topicId) {
+    throw new Error('Topic ID is required.');
+  }
+
+  try {
+    await axios.delete(`/topic/?topic_id=${topicId}`);
+
+    setTopics((prevTopics) => {
+      const updatedTopics = prevTopics.filter((topic) => topic.id !== topicId);
+      return updatedTopics;
+    });
+
+    alert('Topic deleted successfully!');
+  } catch (error) {
+    console.error('API call: error deleting topic:', error);
+    throw error;
+  }
+};

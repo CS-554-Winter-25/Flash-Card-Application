@@ -7,7 +7,7 @@ import './EditTopic.css'; // Importing the CSS file
 function EditTopic({ topic, onCancel }) {
   const navigate = useNavigate();
   const { topics } = useAppContext();
-  const [updatedTopic, setUpdatedTopic] = useState({ name: topic.name });
+  const [updatedTopic, setUpdatedTopic] = useState({ name: topic?.name || '' });
 
   const handleSave = async () => {
     try {
