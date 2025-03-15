@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { handleFetchFlashcardsByTopicName } from '../components/ApiCall.jsx';
 import FlashcardList from '../components/FlashcardList/FlashcardList.jsx';
 import { useAppContext } from "../AppContext";
+import './topic.css'
 
 function ViewFlashcardsByTopicName() {
   const [topicNameInput, setTopicNameInput] = useState('');

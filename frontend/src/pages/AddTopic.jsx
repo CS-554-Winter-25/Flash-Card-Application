@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../AppContext';
 import { handleAddTopic } from '../components/ApiCall.jsx';
+import './topic.css'
 
 function AddTopic() {
     const navigate = useNavigate();
